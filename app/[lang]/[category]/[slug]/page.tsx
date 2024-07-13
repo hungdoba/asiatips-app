@@ -1,14 +1,13 @@
 import { auth } from '@/auth';
 import Image from 'next/image';
 import prisma from '@/lib/prisma';
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
 import { Locale } from '@/i18n-config';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
 import { getDictionary } from '@/get-dictionary';
-
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
 
 async function getPostDetail(lang: Locale, category: string, slug: string) {
   let posts = await prisma.post.findMany({

@@ -1,7 +1,3 @@
-import remarkGfm from 'remark-gfm';
-import rehypeSlug from 'rehype-slug';
-import createMDX from '@next/mdx';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
@@ -33,11 +29,4 @@ const nextConfig = {
   },
 };
 
-const withMDX = createMDX({
-  options: {
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug],
-  },
-});
-
-export default withMDX(nextConfig);
+export default nextConfig;
