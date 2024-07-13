@@ -1,0 +1,10 @@
+- initialize nextjs project
+- remove unnecessary files
+- add env
+- yarn add prisma
+- npx prisma init
+- npx prisma db pull
+- yarn add @prisma/client
+- npx prisma generate
+- replace public
+- npx prisma migrate dev --name init

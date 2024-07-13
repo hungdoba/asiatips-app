@@ -1,0 +1,40 @@
+{
+  "navbar": {
+    "tips": "Mẹo nhỏ",
+    "jlpt": "JLPT",
+    "gallery": "Ảnh chill",
+    "contact": "Góp ý",
+    "admin": "Admin"
+  },
+  "footer": {
+    "signupForNewsletter": "Thông báo bài viết mới",
+    "enterYourEmail": "Email của bạn",
+    "subscribe": "Đăng ký",
+    "successMessage": "Đăng ký thành công",
+    "failMessage": "Đăng ký không thành công"
+  },
+  "homePage": {
+    "lastestPost": "Bài viết mới nhất",
+    "slogan": "Giúp bạn 'Sống Trọn Nhật Bản, Tận Hưởng Từng Khoảnh Khắc'"
+  },
+  "postCard": {
+    "readMore": "Đọc thêm"
+  },
+  "category": {
+    "tipsOverview": "Những mẹo nhỏ giúp cuộc sống ở Nhật của bạn thú vị hơn",
+    "jlptOverview": "Tổng hợp đề thi và đáp án JLPT các năm, giúp mọi người ôn luyện tốt hơn"
+  },
+  "jlpt": {
+    "gotoListen": "Phần nghe",
+    "gotoRead": "Phần đọc"
+  },
+  "unauthorized": {
+    "title": "Truy cập không được phép",
+    "message": "Rất tiếc, bạn không có quyền truy cập vào trang này. Vui lòng liên hệ với quản trị viên của bạn để được trợ giúp hoặc biết thêm thông tin.",
+    "button": "Quay lại trang chủ"
+  },
+  "tableOfContent": {
+    "title": "Mục lục",
+    "buttonUpdate": "Chỉnh sửa"
+  }
+}

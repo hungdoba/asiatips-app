@@ -1,0 +1,40 @@
+{
+  "navbar": {
+    "tips": "Tips",
+    "jlpt": "JLPT",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "footer": {
+    "signupForNewsletter": "Sign up for newsletter",
+    "enterYourEmail": "Enter your email",
+    "subscribe": "Subscribe",
+    "successMessage": "Subscription Successful",
+    "failMessage": "Subscription Fail"
+  },
+  "homePage": {
+    "lastestPost": "Lastest Post",
+    "slogan": "Helping you 'Live Fully in Japan, Enjoy Every Moment'"
+  },
+  "postCard": {
+    "readMore": "Read More"
+  },
+  "category": {
+    "tipsOverview": "Small tips for living in Japan, wish you can find more fascinating information.",
+    "jlptOverview": "Compilation of JLPT exam questions and answers from various years, helping everyone to study better."
+  },
+  "jlpt": {
+    "gotoListen": "Go to Listen",
+    "gotoRead": "Go to Read"
+  },
+  "unauthorized": {
+    "title": "Unauthorized Access",
+    "message": "We’re sorry, but you do not have the necessary permissions to access this page. Please contact your administrator for further assistance or more information.  ",
+    "button": "Back to Home page"
+  },
+  "tableOfContent": {
+    "title": "Table of Content",
+    "buttonUpdate": "Update"
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "navbar": {
+    "tips": "ヒント",
+    "jlpt": "JLPT",
+    "gallery": "ギャラリー",
+    "contact": "連絡",
+    "admin": "管理者"
+  },
+  "footer": {
+    "signupForNewsletter": "新着記事を登録する",
+    "enterYourEmail": "メールを入力",
+    "subscribe": "登録",
+    "successMessage": "登録成功",
+    "failMessage": "登録失敗"
+  },
+  "homePage": {
+    "lastestPost": "最新記事",
+    "slogan": "日本を満喫し、すべての瞬間を楽しもう"
+  },
+  "postCard": {
+    "readMore": "続き読む"
+  },
+  "category": {
+    "tipsOverview": "日本で暮らすための小さなヒント、もっと魅力的な情報が見つかりますように。",
+    "jlptOverview": "各年のJLPT試験の問題と回答のまとめ、みんながより良く勉強できるようにします。"
+  },
+  "jlpt": {
+    "gotoListen": "聴解へ",
+    "gotoRead": "読解へ"
+  },
+  "unauthorized": {
+    "title": "アクセス権がありません",
+    "message": "申し訳ありませんが、このページにアクセスする権限がありません。詳細や支援については、管理者にお問い合わせください。",
+    "button": "ホームページへ戻る"
+  },
+  "tableOfContent": {
+    "title": "目次",
+    "buttonUpdate": "修正"
+  }
+}
