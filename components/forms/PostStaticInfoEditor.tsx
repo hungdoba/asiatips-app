@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import Dropdown from '../controls/Dropdown';
 import { MenuItem } from '@/types/common';
 import { PostStatic } from '@/types/post';
@@ -16,6 +16,9 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
   onChange,
 }) => {
   const { slug, headerImage, category, tags, visible } = postStatic;
+  const [deleteSuccessed, SetDeleteSuccessed] = useState<true | false | null>(
+    null
+  );
 
   const menuItems: MenuItem[] = [
     { label: 'Vietnamese', value: 'vi' },
@@ -51,7 +54,7 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
         try {
           const formData = new FormData();
           formData.append('image', file);
-          formData.append('folder', 'asiatips/post');
+          formData.append('folder', process.env.CLOUDINARY_POST_FOLDER!);
           const imageUrl = await uploadImage(formData);
           if (imageUrl) onChange({ ...postStatic, headerImage: imageUrl });
           else alert('Upload image failed');
@@ -75,14 +78,16 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
   }
 
   async function handleDeleteImage(event: React.DragEvent<HTMLLabelElement>) {
+    SetDeleteSuccessed(null);
     event.preventDefault();
     const text = event.dataTransfer.getData('text/plain');
     const isHeaderImage = text.startsWith('https');
 
     let publicId = extractPublicId(text);
     if (publicId) {
-      publicId = `asiatips/post/${publicId}`;
+      publicId = `${process.env.CLOUDINARY_POST_FOLDER}/${publicId}`;
       const result = await deleteImage(publicId);
+      SetDeleteSuccessed(result);
       if (isHeaderImage) {
         if (result) {
           onChange({ ...postStatic, headerImage: undefined });
@@ -157,7 +162,12 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
             onDrop={handleDeleteImage}
             className="flex flex-col items-center justify-center w-full h-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
           >
-            <div className="flex flex-col items-center justify-center pt-5 pb-4">
+            <div
+              className={`${
+                deleteSuccessed != null &&
+                (deleteSuccessed ? 'text-green-500' : 'text-red-500')
+              } flex flex-col items-center justify-center pt-5 pb-4`}
+            >
               <FiTrash />
             </div>
           </label>

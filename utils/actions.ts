@@ -29,7 +29,7 @@ export async function uploadImage(formData: FormData): Promise<string> {
     cloudinary.uploader
       .upload_stream(
         {
-          folder: folder ?? 'asiatips/post',
+          folder: folder ?? process.env.CLOUDINARY_POST_FOLDER,
           public_id: `image_${localeTimestamp}`,
           tags: ['asiatips.net app route'],
         },

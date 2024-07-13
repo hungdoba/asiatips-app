@@ -24,7 +24,7 @@ export default function MDXEditor({ value, onChange }: Props) {
       try {
         const formData = new FormData();
         formData.append('image', file);
-        formData.append('folder', 'asiatips/post');
+        formData.append('folder', process.env.CLOUDINARY_POST_FOLDER!);
         const imageUrl = await uploadImage(formData);
         if (imageUrl) {
           onSuccess(imageUrl);
