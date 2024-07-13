@@ -18,6 +18,7 @@ const config: Config = {
       typography: () => ({
         DEFAULT: {
           css: {
+            maxWidth: '100%',
             a: {
               textDecoration: 'none',
               opacity: '0.5',

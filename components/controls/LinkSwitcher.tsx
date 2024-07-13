@@ -22,7 +22,7 @@ export default function LinkSwitcher({ lang, dictionary, session }: Props) {
       <div
         className={`${
           hiddenMenu && 'hidden'
-        } items-center justify-between w-full fixed top-0 right-0 z-20 md:flex md:w-auto md:order-1 md:relative`}
+        } items-center justify-between w-full fixed top-0 right-0 z-0 md:flex md:w-auto md:order-1 md:relative`}
         onClick={() => setHiddenMenu(!hiddenMenu)}
       >
         <ul className="flex flex-col font-medium p-4 md:p-0 border border-gray-100 bg-gray-200 md:bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700">

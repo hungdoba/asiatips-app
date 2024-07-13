@@ -2,6 +2,7 @@
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import 'easymde/dist/easymde.min.css';
+import './MDXEditor.css';
 import EasyMDE from 'easymde';
 import { uploadImage } from '@/utils/actions';
 
@@ -49,10 +50,12 @@ export default function MDXEditor({ value, onChange }: Props) {
   }, []);
 
   return (
-    <SimpleMdeReact
-      value={value}
-      onChange={onChange}
-      options={defaultOptions}
-    />
+    <div className="w-full prose dark:prose-invert">
+      <SimpleMdeReact
+        value={value}
+        onChange={onChange}
+        options={defaultOptions}
+      />
+    </div>
   );
 }
