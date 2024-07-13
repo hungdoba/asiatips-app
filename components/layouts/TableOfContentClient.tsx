@@ -20,7 +20,7 @@ export default function TableOfContentClient({
 }: Props) {
   const [visible, setVisible] = useState(false);
   return (
-    <div className="md:mr-4">
+    <div className="md:mr-8 md:sticky md:top-4">
       {/* Button show table of content */}
       <div
         className="fixed p-4 right-2 bottom-2 z-30 md:hidden"
@@ -77,8 +77,11 @@ export default function TableOfContentClient({
 
             {/* Admin action */}
             {session && (
-              <div className="flex items-center justify-between p-4 border-t border-gray-700 dark:border-gray-500 mt-8">
-                <Link href={`/${lang}/admin/update/${slug}`} className="w-full">
+              <div className="flex items-center justify-between p-4 border-t border-gray-400 dark:border-gray-600 mt-8">
+                <Link
+                  href={`/${lang}/admin/update/${slug}`}
+                  className="w-full text-gray-400"
+                >
                   Modify
                 </Link>
               </div>

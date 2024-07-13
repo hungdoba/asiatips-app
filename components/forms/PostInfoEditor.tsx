@@ -29,27 +29,25 @@ const PostInfoEditor: React.FC<PostInfoEditorProps> = ({
     onChange({ ...postInfo, tableOfContent });
   };
 
-  const createTableOfContent = () => {
-    console.log(postContent);
-
+  const createTableOfContent = async () => {
     const headings = postContent.match(/^(#+)(.*)/gm);
 
     if (!headings || headings.length === 0) {
-      console.log('No headings found.');
+      alert('No headings found.');
       return '';
     }
 
     let toc = '';
     headings.forEach((heading: string) => {
-      const matchResult = heading.match(/^#+/);
+      const matchResult = heading.match(/^(#+)/m);
       if (matchResult) {
         const level = matchResult[0].length;
-        const text = heading.replace(/^#+\s*/, '').trim();
-        const slug = text
+        const text = heading.replace(/^(#+)\s*/, '').trim();
+        const anchor = text
           .toLowerCase()
           .replace(/\s+/g, '-')
-          .replace(/[^\w\-]+/g, ''); // remove non-alphanumeric characters except hyphens
-        toc += `${'  '.repeat(level - 1)}- [${text}](#${slug})\n`;
+          .replace(/[!\"$%&'()*+,\./:;<=>?@[\\\]^`{|}~]/g, '');
+        toc += `${'  '.repeat(level - 1)}- [${text}](#${anchor})\n`;
       }
     });
 

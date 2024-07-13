@@ -15,13 +15,14 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
-      typography: (theme: any) => ({
+      typography: () => ({
         DEFAULT: {
           css: {
             a: {
               textDecoration: 'none',
+              opacity: '0.5',
               '&:hover': {
-                textDecoration: 'underline',
+                opacity: '0.8',
               },
             },
           },

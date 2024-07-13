@@ -12,21 +12,21 @@ export default function ThemeSwitch() {
 
   if (!mounted) return <FiCloud className="text-blue-500" />;
 
-  if (resolvedTheme === 'dark') {
-    return (
-      <FiMoon
-        className="text-gray-400 hover:cursor-pointer"
-        onClick={() => setTheme('light')}
-      />
-    );
+  function handleChangeTheme(): void {
+    if (resolvedTheme === 'dark') {
+      setTheme('light');
+      return;
+    }
+    setTheme('dark');
   }
 
-  if (resolvedTheme === 'light') {
-    return (
-      <FiSun
-        className="text-yellow-500 hover:cursor-pointer"
-        onClick={() => setTheme('dark')}
-      />
-    );
-  }
+  return (
+    <div className="p-4 hover:cursor-pointer" onClick={handleChangeTheme}>
+      {resolvedTheme === 'dark' ? (
+        <FiMoon className="text-gray-400" />
+      ) : (
+        <FiSun className="text-orange-600 hover:cursor-pointer" />
+      )}
+    </div>
+  );
 }

@@ -28,7 +28,11 @@ export default async function RootLayout({
   params: { lang: Locale };
 }>) {
   return (
-    <html lang={params.lang} suppressHydrationWarning>
+    <html
+      lang={params.lang}
+      suppressHydrationWarning
+      className="scroll-smooth scroll-pt-4"
+    >
       <body className={inter.className}>
         <Providers>
           <div className="bg-white text-black dark:bg-slate-800 dark:text-gray-300">
