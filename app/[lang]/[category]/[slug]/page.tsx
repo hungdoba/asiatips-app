@@ -7,6 +7,9 @@ import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
 import { getDictionary } from '@/get-dictionary';
 
+import remarkGfm from 'remark-gfm';
+import rehypeSlug from 'rehype-slug';
+
 async function getPostDetail(lang: Locale, category: string, slug: string) {
   let posts = await prisma.post.findMany({
     where: { post_category: category, slug: slug },
@@ -30,13 +33,15 @@ export default async function PostDetail({
     <main className="container mx-auto w-full my-4 md:max-w-5xl">
       <div className="flex flex-col md:flex-row mx-4 md:mx-8">
         {/* Table of Content */}
-        <TableOfContentClient
-          dictionary={dictionary}
-          session={session}
-          lang={params.lang}
-          slug={params.slug}
-          tableOfContent={<TableOfContent datas={datas} />}
-        />
+        <div className="w-full md:w-1/4">
+          <TableOfContentClient
+            dictionary={dictionary}
+            session={session}
+            lang={params.lang}
+            slug={params.slug}
+            tableOfContent={<TableOfContent datas={datas} />}
+          />
+        </div>
 
         {/* Main article */}
         <div className="w-full md:w-3/4">
@@ -56,8 +61,16 @@ export default async function PostDetail({
               height: 'auto',
             }}
           />
-          <div className="prose max-w-none overflow-hidden mt-4">
-            <MDXRemote source={datas[0].post_translation[0].post_content} />
+          <div className="prose dark:prose-invert max-w-none overflow-hidden mt-4">
+            <MDXRemote
+              source={datas[0].post_translation[0].post_content}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                  rehypePlugins: [rehypeSlug],
+                },
+              }}
+            />
           </div>
         </div>
       </div>

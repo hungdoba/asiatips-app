@@ -6,7 +6,7 @@ interface Props {
 
 export default function TableOfContent({ datas }: Props) {
   return (
-    <div className="w-full">
+    <div className="w-full prose dark:prose-invert">
       <MDXRemote source={datas[0].post_translation[0].table_of_contents} />
     </div>
   );

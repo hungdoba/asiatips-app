@@ -35,9 +35,9 @@ export default function TableOfContentClient({
           !visible && 'hidden md:block'
         } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 md:static justify-center items-center w-full h-full max-h-full bg-white bg-opacity-95 dark:bg-slate-800 dark:bg-opacity-95`}
       >
-        <div className="relative p-4 w-full max-w-2xl max-h-full">
+        <div className="relative p-4 md:p-0 w-full max-w-2xl max-h-full">
           {/* Modal content */}
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 md:bg-transparent md:dark:bg-transparent">
+          <div className="relative bg-white rounded-lg dark:bg-gray-700 md:bg-transparent md:dark:bg-transparent">
             {/* Modal header */}
             <div className="flex items-center justify-between p-4 md:p-0 md:pb-4 border-b rounded-t dark:border-gray-600">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
@@ -71,15 +71,15 @@ export default function TableOfContentClient({
             </div>
 
             {/* Table of Contents */}
-            <div className="p-4 md:p-0 md:pt-4 space-y-4">{tableOfContent}</div>
+            <article className="p-4 md:p-0 md:pt-4 space-y-4">
+              {tableOfContent}
+            </article>
 
             {/* Admin action */}
             {session && (
-              <div className="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <Link href={`/${lang}/admin/update/${slug}`}>
-                  <div className="text-center text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    Modify
-                  </div>
+              <div className="flex items-center justify-between p-4 border-t border-gray-700 dark:border-gray-500 mt-8">
+                <Link href={`/${lang}/admin/update/${slug}`} className="w-full">
+                  Modify
                 </Link>
               </div>
             )}
