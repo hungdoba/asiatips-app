@@ -2,7 +2,6 @@
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import 'easymde/dist/easymde.min.css';
-import './MDXEditor.css';
 import EasyMDE from 'easymde';
 import { uploadImage } from '@/utils/actions';
 
@@ -25,7 +24,10 @@ export default function MDXEditor({ value, onChange }: Props) {
       try {
         const formData = new FormData();
         formData.append('image', file);
-        formData.append('folder', process.env.CLOUDINARY_POST_FOLDER!);
+        formData.append(
+          'folder',
+          process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER!
+        );
         const imageUrl = await uploadImage(formData);
         if (imageUrl) {
           onSuccess(imageUrl);
@@ -52,6 +54,7 @@ export default function MDXEditor({ value, onChange }: Props) {
   return (
     <div className="w-full prose dark:prose-invert">
       <SimpleMdeReact
+        className="editor-text-black editor-toolbar-gray"
         value={value}
         onChange={onChange}
         options={defaultOptions}

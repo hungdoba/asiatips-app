@@ -12,3 +12,26 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+/* Custom Css for SimpleMdeReact */
+.editor-text-black {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  p,
+  li,
+  ol {
+    color: black !important;
+  }
+}
+
+/* Custom Css for SimpleMdeReact */
+.editor-toolbar-gray {
+  .editor-toolbar {
+    color: gray;
+  }
+}

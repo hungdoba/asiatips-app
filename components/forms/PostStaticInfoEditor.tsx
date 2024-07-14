@@ -50,11 +50,15 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
     const fileList = event.target.files;
     if (fileList && fileList.length > 0) {
       const file = fileList[0];
+
       if (file) {
         try {
           const formData = new FormData();
           formData.append('image', file);
-          formData.append('folder', process.env.CLOUDINARY_POST_FOLDER!);
+          formData.append(
+            'folder',
+            process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER!
+          );
           const imageUrl = await uploadImage(formData);
           if (imageUrl) onChange({ ...postStatic, headerImage: imageUrl });
           else alert('Upload image failed');
@@ -85,7 +89,7 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
 
     let publicId = extractPublicId(text);
     if (publicId) {
-      publicId = `${process.env.CLOUDINARY_POST_FOLDER}/${publicId}`;
+      publicId = `${process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER}/${publicId}`;
       const result = await deleteImage(publicId);
       SetDeleteSuccessed(result);
       if (isHeaderImage) {
@@ -122,30 +126,20 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
       </div>
       <div className="flex flex-row space-x-2">
         <div className="relative z-0 w-full mb-5 group">
-          <label
-            htmlFor="dropzone-file"
-            className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500"
-          >
+          <label className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500">
             <div className="flex flex-col items-center justify-center pt-5 pb-4">
               <FiUploadCloud />
-              <p className="mb-2 text-sm text-gray-500">
-                <span className="font-semibold">
-                  {headerImage == undefined ? (
-                    'Upload'
-                  ) : (
-                    <Link
-                      className="text-blue-500"
-                      href={headerImage}
-                      target="_blank"
-                    >
-                      Uploaded
-                    </Link>
-                  )}
-                </span>
-              </p>
+              {headerImage && (
+                <Link
+                  className="text-blue-500"
+                  href={headerImage}
+                  target="_blank"
+                >
+                  Uploaded
+                </Link>
+              )}
             </div>
             <input
-              id="dropzone-file"
               type="file"
               className="hidden"
               onChange={handleUploadImage}
