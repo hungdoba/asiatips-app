@@ -8,7 +8,7 @@ export default function Bookmark() {
   return (
     <FiBookmark
       onClick={() => setMarkded(!marked)}
-      className={`w-5 h-5 ml-2 cursor-pointer ${marked && 'text-blue-600'}`}
+      className={`w-4 h-4 ml-2 cursor-pointer ${marked && 'text-blue-600'}`}
     />
   );
 }

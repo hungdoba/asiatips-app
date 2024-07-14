@@ -21,6 +21,7 @@ const config: Config = {
             maxWidth: '100%',
             a: {
               textDecoration: 'none',
+              fontWeight: 'normal',
               opacity: '0.5',
               '&:hover': {
                 opacity: '0.8',

@@ -25,7 +25,7 @@ export default function Question({ question, hintShowed, showHint }: Props) {
         <Bookmark />
         <FaRegLightbulb
           onClick={showHint}
-          className={`w-5 h-5 ml-2 cursor-pointer ${
+          className={`w-4 h-4 ml-2 cursor-pointer ${
             hintShowed ? 'text-yellow-600' : ''
           }`}
         />

@@ -178,11 +178,18 @@ export async function createPost(formData: FormData): Promise<any> {
   }
 }
 
-export async function getAllPost(lang: Locale) {
-  let posts = await prisma.post.findMany({
-    include: {
-      post_translation: lang ? { where: { language_code: lang } } : true,
-    },
-  });
-  return posts;
+export async function getAllPost(lang?: string): Promise<any> {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        updated_at: 'desc',
+      },
+      include: {
+        post_translation: lang ? { where: { language_code: lang } } : true,
+      },
+    });
+    return posts;
+  } catch (error) {
+    throw new Error(`Error fetching posts: ${error}`);
+  }
 }
