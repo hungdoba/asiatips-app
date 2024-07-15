@@ -24,6 +24,7 @@ export default async function Footer({ lang }: Props) {
       <div className="flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
           <Link
+            aria-label="facebook"
             className="hover:cursor-pointer"
             href={`https://www.facebook.com/asiatips.net`}
             target="_blank"
@@ -32,6 +33,7 @@ export default async function Footer({ lang }: Props) {
           </Link>
 
           <Link
+            aria-label="twitter"
             className="hover:cursor-pointer"
             href={`https://x.com/asiatips__net`}
             target="_blank"
@@ -40,6 +42,7 @@ export default async function Footer({ lang }: Props) {
           </Link>
 
           <Link
+            aria-label="instagram"
             className="hover:cursor-pointer"
             href={`https://www.instagram.com/asiatips_net`}
             target="_blank"

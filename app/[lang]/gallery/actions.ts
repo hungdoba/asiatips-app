@@ -4,6 +4,23 @@ import cloudinary from '@/lib/cloudinary';
 import { CloudImage } from '@/types/image';
 import imagemin from 'imagemin';
 
+export async function getImagesCount(): Promise<number> {
+  try {
+    const results = await cloudinary.search
+      .expression(
+        `folder:${process.env.NEXT_PUBLIC_CLOUDINARY_GALLERY_FOLDER}/*`
+      )
+      .execute();
+
+    // Extract the total count from the results
+    const totalCount = results.total_count;
+
+    return totalCount;
+  } catch (error) {
+    return 1;
+  }
+}
+
 export async function getAllImages(): Promise<CloudImage[]> {
   try {
     const results = await cloudinary.search

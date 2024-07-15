@@ -9,7 +9,7 @@ export function SignInIcon() {
         await signIn();
       }}
     >
-      <button>
+      <button role="button" aria-label="Log in">
         <FiLogIn className="hover:text-blue-500" />
       </button>
     </form>
@@ -24,7 +24,7 @@ export function SignOutIcon() {
         await signOut();
       }}
     >
-      <button>
+      <button role="button" aria-label="Log out">
         <FiLogOut className="hover:text-blue-500" />
       </button>
     </form>

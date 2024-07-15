@@ -34,11 +34,11 @@ export async function middleware(request: NextRequest) {
     [
       '/manifest.json',
       '/favicon.ico',
-      '/logo.png',
+      '/icon.png',
       '/flags/vi.svg',
       '/flags/ja.svg',
       '/flags/en.svg',
-      // Add other public files if necessary
+      '/sitemap.xml',
     ].includes(pathname)
   ) {
     return NextResponse.next();

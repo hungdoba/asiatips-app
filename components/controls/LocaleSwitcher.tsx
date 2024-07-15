@@ -60,19 +60,18 @@ export default function LocaleSwitcher() {
         id="language-dropdown-menu"
       >
         <ul className="py-2 font-medium">
-          {locales.map(
-            (locale, index) =>
-              locale.locale != currentLocale && (
-                <li key={index} role="none">
-                  <Link
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
-                    href={changeLocaleInUrlPath(pathName, locale.locale)}
-                  >
-                    <Option option={locale} />
-                  </Link>
-                </li>
-              )
-          )}
+          {locales
+            .filter((locale) => locale.locale !== currentLocale)
+            .map((locale, index) => (
+              <li key={index} role="none">
+                <Link
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                  href={changeLocaleInUrlPath(pathName, locale.locale)}
+                >
+                  <Option option={locale} />
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </div>

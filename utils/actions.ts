@@ -1,8 +1,7 @@
 'use server';
 
-import { Locale } from '@/i18n-config';
-import cloudinary from '@/lib/cloudinary';
 import prisma from '@/lib/prisma';
+import cloudinary from '@/lib/cloudinary';
 import { post_translation } from '@prisma/client';
 
 export async function deleteImage(public_id: string): Promise<boolean> {
@@ -178,7 +177,7 @@ export async function createPost(formData: FormData): Promise<any> {
   }
 }
 
-export async function getAllPost(lang?: string): Promise<any> {
+export async function getAllFullPosts(lang?: string): Promise<any> {
   try {
     const posts = await prisma.post.findMany({
       orderBy: {
@@ -186,6 +185,19 @@ export async function getAllPost(lang?: string): Promise<any> {
       },
       include: {
         post_translation: lang ? { where: { language_code: lang } } : true,
+      },
+    });
+    return posts;
+  } catch (error) {
+    throw new Error(`Error fetching posts: ${error}`);
+  }
+}
+
+export async function getAllPosts(): Promise<any> {
+  try {
+    const posts = await prisma.post.findMany({
+      orderBy: {
+        updated_at: 'desc',
       },
     });
     return posts;

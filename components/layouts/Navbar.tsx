@@ -26,7 +26,7 @@ export default async function Navbar({ lang }: Props) {
             className="flex items-center space-x-3 rtl:space-x-reverse pl-4"
           >
             <Image
-              src="/logo.png"
+              src="/icon.png"
               width={120}
               height={47}
               className="h-10 w-auto"
