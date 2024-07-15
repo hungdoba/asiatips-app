@@ -1,37 +1,8 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
+@tailwind components;
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.scrollbar-hidden::-webkit-scrollbar {
-  display: none;
-}
-
-/* Hide scrollbar for IE, Edge and Firefox */
-.scrollbar-hidden {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
-/* Custom Css for SimpleMdeReact */
-.editor-text-black {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  strong,
-  p,
-  li,
-  ol {
-    color: black !important;
-  }
-}
-
-/* Custom Css for SimpleMdeReact */
-.editor-toolbar-gray {
-  .editor-toolbar {
-    color: gray;
-  }
+/* Overwrite a tag in TableofContents */
+.hover-links-cyan-500 a:hover {
+  color: #06b6d4;
 }

@@ -109,7 +109,7 @@ export default function TableOfContentClient({
               <div className="flex items-center justify-between p-4 border-t border-gray-400 dark:border-gray-600 mt-8">
                 <Link
                   href={`/${lang}/admin/update/${slug}`}
-                  className="w-full text-gray-400"
+                  className="w-full text-gray-400 dark:text-gray-500"
                 >
                   {dictionary.tableOfContent.buttonUpdate}
                 </Link>

@@ -18,15 +18,8 @@ const config: Config = {
       typography: () => ({
         DEFAULT: {
           css: {
+            // Overwrite maxwidth of MDXEditor.tsx
             maxWidth: '100%',
-            a: {
-              textDecoration: 'none',
-              fontWeight: 'normal',
-              opacity: '0.5',
-              '&:hover': {
-                opacity: '0.8',
-              },
-            },
           },
         },
       }),

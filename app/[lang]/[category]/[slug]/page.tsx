@@ -5,9 +5,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Locale } from '@/i18n-config';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import { getDictionary } from '@/get-dictionary';
 import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
-import { getDictionary } from '@/get-dictionary';
 
 async function getPostDetail(lang: Locale, category: string, slug: string) {
   let posts = await prisma.post.findMany({
@@ -60,7 +60,7 @@ export default async function PostDetail({
               height: 'auto',
             }}
           />
-          <div className="prose dark:prose-invert max-w-none overflow-hidden mt-4">
+          <div className="prose dark:prose-invert max-w-none overflow-hidden mt-4 mdx-remote-a-blue prose-a:no-underline prose-a:text-cyan-500">
             <MDXRemote
               source={datas[0].post_translation[0].post_content}
               options={{
