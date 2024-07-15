@@ -39,6 +39,7 @@ export async function middleware(request: NextRequest) {
       '/flags/ja.svg',
       '/flags/en.svg',
       '/sitemap.xml',
+      '/robots.txt',
     ].includes(pathname)
   ) {
     return NextResponse.next();
