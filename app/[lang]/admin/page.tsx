@@ -1,17 +1,22 @@
 import Link from 'next/link';
 import { auth } from '@/auth';
-import { SignInButton, SignOutButton } from '@/components/controls/Button';
+import {
+  RevalidateGalleryButton,
+  SignInButton,
+  SignOutButton,
+} from '@/components/controls/Button';
 
 export default async function SignIn() {
   const session = await auth();
   if (!session?.user)
     return (
-      <div className="mx-auto max-w-lg py-60 flex justify-center items-center">
+      <div className="mx-auto max-w-lg flex justify-center items-center">
         <SignInButton />
       </div>
     );
+
   return (
-    <div className="mx-auto max-w-sm md:max-w-lg py-40 flex flex-col">
+    <div className="mx-auto max-w-sm md:max-w-lg flex flex-col">
       <h1 className="leading-tight tracking-tight text-gray-900 dark:text-white mb-4">
         {`Logged in:`}
       </h1>
@@ -25,6 +30,7 @@ export default async function SignIn() {
         Create New Post
       </Link>
       <SignOutButton />
+      <RevalidateGalleryButton />
     </div>
   );
 }

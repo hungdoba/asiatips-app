@@ -48,13 +48,13 @@ export async function uploadImage(formData: FormData): Promise<string> {
 }
 
 // Has cache function
-// TODO: Add revalidate()
 export async function getImagesCount(): Promise<number> {
   try {
     const results = await cloudinary.search
       .expression(
         `folder:${process.env.NEXT_PUBLIC_CLOUDINARY_GALLERY_FOLDER}/*`
       )
+      .max_results(500)
       .execute();
 
     const totalCount = results.total_count;
@@ -66,14 +66,14 @@ export async function getImagesCount(): Promise<number> {
 }
 
 // Has cache function
-// TODO: Add revalidate()
 export async function getAllImages(): Promise<CloudImage[]> {
   try {
     const results = await cloudinary.search
       .expression(
         `folder:${process.env.NEXT_PUBLIC_CLOUDINARY_GALLERY_FOLDER}/*`
       )
-      .sort_by('public_id', 'desc')
+      .sort_by('uploaded_at', 'desc')
+      .max_results(500) // If not define it's default is 10, max 500
       .execute();
 
     const cleanResult: CloudImage[] = await Promise.all(
