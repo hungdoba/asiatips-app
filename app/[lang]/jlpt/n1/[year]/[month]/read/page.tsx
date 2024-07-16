@@ -37,6 +37,7 @@ export default async function JLPTDetail({
   const renderMondaiComponents = () =>
     [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
       <Mondai
+        key={index}
         session={session}
         data={getMondai(mondaiNumber)}
         mondai_number={mondaiNumber}
