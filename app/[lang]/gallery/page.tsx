@@ -5,6 +5,7 @@ import { CloudImage } from '@/types/image';
 
 export default async function page() {
   let images = await getAllImages();
+
   return (
     <div className="container w-full px-2 md:mx-auto md:max-w-5xl my-2 md:my-8">
       <div className="columns-2 gap-2 md:gap-4 md:columns-3">
@@ -18,7 +19,7 @@ export default async function page() {
               alt="Photos around the world"
               className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
               placeholder="blur"
-              blurDataURL={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/w_350/e_blur:1000,q_1,f_auto/e_cartoonify/${image.public_id}.${image.format}`}
+              blurDataURL={image.blur_data_url}
               src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_350/${image.public_id}.${image.format}`}
               width={350}
               height={350 / image.aspect_ratio}

@@ -2,21 +2,16 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { CloudImage } from '@/types/image';
 import { useEffect, useRef, useState } from 'react';
 import { FiChevronLeft, FiChevronRight, FiX } from 'react-icons/fi';
-import { CloudImage } from '@/types/image';
 
 interface Props {
   images: CloudImage[];
   initSelectedId: number;
-  backgroundUrl: string;
 }
 
-export default function ImageView({
-  images,
-  initSelectedId,
-  backgroundUrl,
-}: Props) {
+export default function ImageView({ images, initSelectedId }: Props) {
   const [selectedId, setSelectedId] = useState(initSelectedId);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -80,107 +75,96 @@ export default function ImageView({
   }
 
   return (
-    <>
-      <div className="absolute w-screen h-screen">
-        {/* Background image */}
-        <Image
-          className="pointer-events-none h-full w-full"
-          src={backgroundUrl}
-          priority={true}
-          alt="Blurred background"
-          fill
-          sizes="100vw"
-        />
-      </div>
-      <div className="absolute w-screen flex flex-col h-screen items-center">
-        <div className="h-5/6 w-full flex items-center justify-center pt-2 md:pt-4">
-          <div
-            className={`mx-2 md:mx-0 relative rounded-lg overflow-hidden h-1/3 md:h-full max-w-7xl flex-1 transition-opacity duration-300`}
+    <div className="absolute w-screen flex flex-col h-screen items-center">
+      <div className="h-5/6 w-full flex items-center justify-center pt-2 md:pt-4">
+        <div
+          className={`mx-2 md:mx-0 relative overflow-hidden h-1/3 md:h-full max-w-7xl flex-1`}
+        >
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                image.id === selectedId ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {/* Main image */}
+              <Image
+                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_1980/${image.public_id}.${image.format}`}
+                blurDataURL={image.blur_data_url}
+                alt="Big image"
+                fill
+                sizes="100vw"
+                style={{
+                  objectFit: 'cover',
+                }}
+                className="transform rounded-lg transition-opacity duration-700 ease-in-out opacity-0"
+                onLoadingComplete={(img) => img.classList.remove('opacity-0')}
+              />
+            </div>
+          ))}
+
+          {/* Button Close: Top Left */}
+          <Link
+            href={`./`}
+            className="absolute top-0 left-0 p-2 bg-gray-700 bg-opacity-70 text-white rounded-full m-2"
           >
-            {images.map((image, index) => (
-              <div
-                key={index}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                  image.id === selectedId ? 'opacity-100' : 'opacity-0'
+            <div className="w-4 h-4 flex justify-center items-center">
+              <FiX />
+            </div>
+          </Link>
+
+          {/* Button Back: Left Center */}
+          <button
+            className="absolute left-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
+            onClick={handleBack}
+          >
+            <div className="w-4 h-4 flex justify-center items-center">
+              <FiChevronLeft />
+            </div>
+          </button>
+
+          {/* Button Next: Right Center */}
+          <button
+            className="absolute right-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
+            onClick={handleNext}
+          >
+            <div className="w-4 h-4 flex justify-center items-center">
+              <FiChevronRight />
+            </div>
+          </button>
+        </div>
+      </div>
+
+      {/* Scroll bar thumbnail images */}
+      <div className="h-1/6 fixed bottom-0 text-white flex justify-center items-center w-full">
+        <div
+          ref={containerRef}
+          className="w-full max-w-5xl flex overflow-x-scroll space-x-2 p-4 bg-white bg-opacity-30 backdrop-blur-lg scrollbar-hidden rounded-lg no-scrollbar"
+        >
+          {images.map((image: CloudImage, index: number) => (
+            <div
+              key={index}
+              className="w-24 h-24 relative flex-shrink-0 cursor-pointer"
+              onClick={() => handleThumbnailClicked(image.id)}
+            >
+              <Image
+                src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_fill,h_200,w_200/${image.public_id}.${image.format}`}
+                alt={`Thumbnail ${index}`}
+                className={`rounded-lg transition-transform duration-300 ${
+                  image.id === selectedId
+                    ? 'transform scale-105 border-2 border-blue-500'
+                    : ''
                 }`}
-              >
-                {/* Main image */}
-                <Image
-                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_1980/${image.public_id}.${image.format}`}
-                  blurDataURL={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_720/${image.public_id}.${image.format}`}
-                  alt="Big image"
-                  fill
-                  sizes="100vw"
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-            ))}
-
-            {/* Button Close: Top Left */}
-            <Link
-              href={`./`}
-              className="absolute top-0 left-0 p-2 bg-gray-700 bg-opacity-70 text-white rounded-full m-2"
-            >
-              <div className="w-4 h-4 flex justify-center items-center">
-                <FiX />
-              </div>
-            </Link>
-
-            {/* Button Back: Left Center */}
-            <button
-              className="absolute left-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
-              onClick={handleBack}
-            >
-              <div className="w-4 h-4 flex justify-center items-center">
-                <FiChevronLeft />
-              </div>
-            </button>
-
-            {/* Button Next: Right Center */}
-            <button
-              className="absolute right-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
-              onClick={handleNext}
-            >
-              <div className="w-4 h-4 flex justify-center items-center">
-                <FiChevronRight />
-              </div>
-            </button>
-          </div>
-        </div>
-
-        {/* Scroll bar thumbnail images */}
-        <div className="h-1/6 fixed bottom-0 text-white flex justify-center items-center w-full">
-          <div
-            ref={containerRef}
-            className="w-full max-w-5xl flex overflow-x-scroll space-x-2 p-4 bg-white bg-opacity-30 backdrop-blur-lg scrollbar-hidden rounded-lg no-scrollbar"
-          >
-            {images.map((image: CloudImage, index: number) => (
-              <div
-                key={index}
-                className="w-24 h-24 relative flex-shrink-0 cursor-pointer"
-                onClick={() => handleThumbnailClicked(image.id)}
-              >
-                <Image
-                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_fill,h_200,w_200/${image.public_id}.${image.format}`}
-                  alt={`Thumbnail ${index}`}
-                  className={`rounded-lg transition-transform duration-300 ${
-                    image.id === selectedId
-                      ? 'transform scale-105 border-2 border-blue-500'
-                      : ''
-                  }`}
-                  fill
-                  sizes="96px"
-                  style={{
-                    objectFit: 'cover',
-                  }}
-                />
-              </div>
-            ))}
-          </div>
+                fill
+                sizes="96px"
+                style={{
+                  objectFit: 'cover',
+                }}
+              />
+            </div>
+          ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }

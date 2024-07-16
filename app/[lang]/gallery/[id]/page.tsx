@@ -1,5 +1,5 @@
-import { getAllImages, getBackgroundBlurImage } from '../actions';
 import ImageView from './ImageView';
+import { getAllImages } from '../actions';
 
 interface Props {
   params: {
@@ -9,15 +9,5 @@ interface Props {
 
 export default async function page({ params }: Props) {
   const images = await getAllImages();
-  const backgroundImage = images[params.id];
-  const background = await getBackgroundBlurImage(backgroundImage);
-  return (
-    <div className="fixed top-0 left-0 z-10 w-screen h-screen bg-white bg-opacity-10">
-      <ImageView
-        images={images}
-        initSelectedId={Number(params.id)}
-        backgroundUrl={background}
-      />
-    </div>
-  );
+  return <ImageView images={images} initSelectedId={Number(params.id)} />;
 }

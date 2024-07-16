@@ -5,4 +5,5 @@ export interface CloudImage {
   public_id: string;
   format: string;
   aspect_ratio: number;
+  blur_data_url: string;
 }
