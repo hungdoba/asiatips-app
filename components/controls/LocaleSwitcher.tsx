@@ -52,7 +52,7 @@ export default function LocaleSwitcher() {
         />
       </button>
       <div
-        className={`w-full z-50 absolute top-full mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 transform transition-transform duration-300 ${
+        className={`w-full absolute top-full mt-2 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 transform transition-transform duration-300 ${
           isDropdownOpen
             ? 'translate-y-0 ease-out opacity-100'
             : 'translate-y-4 ease-in opacity-0'

@@ -81,7 +81,7 @@ export default function ImageView({
 
   return (
     <>
-      <div className="absolute w-screen h-screen z-10">
+      <div className="absolute w-screen h-screen">
         {/* Background image */}
         <Image
           className="pointer-events-none h-full w-full"
@@ -92,7 +92,7 @@ export default function ImageView({
           sizes="100vw"
         />
       </div>
-      <div className="absolute z-50 w-screen flex flex-col h-screen items-center">
+      <div className="absolute w-screen flex flex-col h-screen items-center">
         <div className="h-5/6 w-full flex items-center justify-center pt-2 md:pt-4">
           <div
             className={`mx-2 md:mx-0 relative rounded-lg overflow-hidden h-1/3 md:h-full max-w-7xl flex-1 transition-opacity duration-300`}

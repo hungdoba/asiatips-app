@@ -35,7 +35,7 @@ export default function TableOfContentClient({
   return (
     <div className={`md:mr-8 md:top-4 ${pin ? 'md:sticky' : 'md:static'}`}>
       {/* Button show table of content */}
-      <div className="fixed right-2 bottom-2 z-30 hover:cursor-pointer">
+      <div className="fixed right-2 bottom-2 hover:cursor-pointer">
         <div className="p-2 md:p-4" onClick={handleScrollToTheTop}>
           <FiChevronUp />
         </div>
@@ -48,7 +48,7 @@ export default function TableOfContentClient({
       <div
         className={`${
           !visible && 'hidden md:block'
-        } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-30 md:relative justify-center items-center w-full h-full max-h-full bg-white bg-opacity-95 dark:bg-slate-800 dark:bg-opacity-95`}
+        } overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 md:relative justify-center items-center w-full h-full max-h-full bg-white bg-opacity-95 dark:bg-slate-800 dark:bg-opacity-95`}
       >
         <div className="relative p-4 md:p-0 w-full max-w-2xl max-h-full">
           {/* Modal content */}

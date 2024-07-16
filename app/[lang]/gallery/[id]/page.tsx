@@ -12,7 +12,7 @@ export default async function page({ params }: Props) {
   const backgroundImage = images[params.id];
   const background = await getBackgroundBlurImage(backgroundImage);
   return (
-    <div className="fixed top-0 left-0 w-screen h-screen z-20 bg-white bg-opacity-10">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-white bg-opacity-10">
       <ImageView
         images={images}
         initSelectedId={Number(params.id)}

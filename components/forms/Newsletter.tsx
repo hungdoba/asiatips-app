@@ -29,7 +29,7 @@ export default function Newsletter({ dictionary }: Props) {
       </h2>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-row mx-auto md:max-w-screen-sm">
-          <div className="relative w-3/4 z-10">
+          <div className="relative w-3/4">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 className="w-5 h-5"
