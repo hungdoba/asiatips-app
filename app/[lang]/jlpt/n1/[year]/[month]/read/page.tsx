@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { auth } from '@/auth';
+import { Suspense } from 'react';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/read/Mondai';
@@ -10,7 +11,7 @@ import Mondai10 from '@/components/jlpt/read/Mondai10';
 import Mondai11 from '@/components/jlpt/read/Mondai11';
 import Mondai12 from '@/components/jlpt/read/Mondai12';
 import Mondai13 from '@/components/jlpt/read/Mondai13';
-import { getCacheJLPTReadDetail } from '@/actions/cache/jlpt';
+import { getCacheJLPTReadFullDetail } from '@/actions/cache/jlpt';
 
 export default async function JLPTDetail({
   params,
@@ -19,73 +20,31 @@ export default async function JLPTDetail({
 }) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
-  const mondai1 = await getCacheJLPTReadDetail(params.year, params.month, '1');
-  const mondai2 = await getCacheJLPTReadDetail(params.year, params.month, '2');
-  const mondai3 = await getCacheJLPTReadDetail(params.year, params.month, '3');
-  const mondai4 = await getCacheJLPTReadDetail(params.year, params.month, '4');
-  const mondai5 = await getCacheJLPTReadDetail(params.year, params.month, '5');
-  const mondai6 = await getCacheJLPTReadDetail(params.year, params.month, '6');
-  const mondai7 = await getCacheJLPTReadDetail(params.year, params.month, '7');
-  const mondai81 = await getCacheJLPTReadDetail(
+  const { mondais, questions } = await getCacheJLPTReadFullDetail(
     params.year,
-    params.month,
-    '81'
+    params.month
   );
-  const mondai82 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '82'
-  );
-  const mondai83 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '83'
-  );
-  const mondai84 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '84'
-  );
-  const mondai91 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '91'
-  );
-  const mondai92 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '92'
-  );
-  const mondai93 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '93'
-  );
-  const mondai94 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '94'
-  );
-  const mondai10 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '10'
-  );
-  const mondai11 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '11'
-  );
-  const mondai12 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '12'
-  );
-  const mondai13 = await getCacheJLPTReadDetail(
-    params.year,
-    params.month,
-    '13'
-  );
+
+  function getMondai(mondaiNumber: number) {
+    const mondai = mondais.filter(
+      (value) => value.mondai_number === mondaiNumber
+    );
+    const question = questions.filter(
+      (value) => value.mondai_number === mondaiNumber
+    );
+    return { mondais: mondai, questions: question };
+  }
+
+  const renderMondaiComponents = () =>
+    [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
+      <Suspense key={index} fallback={<p>Loading...</p>}>
+        <Mondai
+          session={session}
+          data={getMondai(mondaiNumber)}
+          mondai_number={mondaiNumber}
+        />
+      </Suspense>
+    ));
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
@@ -104,31 +63,40 @@ export default async function JLPTDetail({
         <hr />
       </div>
       <div className="underline-offset-4">
-        <Mondai session={session} data={mondai1} mondai_number={1} />
-        <Mondai session={session} data={mondai2} mondai_number={2} />
-        <Mondai session={session} data={mondai3} mondai_number={3} />
-        <Mondai session={session} data={mondai4} mondai_number={4} />
-        <Mondai session={session} data={mondai5} mondai_number={5} />
-        <Mondai session={session} data={mondai6} mondai_number={6} />
-        <Mondai7 session={session} data={mondai7} />
-        <Mondai8
-          session={session}
-          data1={mondai81}
-          data2={mondai82}
-          data3={mondai83}
-          data4={mondai84}
-        />
-        <Mondai9
-          session={session}
-          data1={mondai91}
-          data2={mondai92}
-          data3={mondai93}
-          data4={mondai94}
-        />
-        <Mondai10 session={session} data={mondai10} />
-        <Mondai11 session={session} data={mondai11} />
-        <Mondai12 session={session} data={mondai12} />
-        <Mondai13 session={session} data={mondai13} />
+        {renderMondaiComponents()}
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai7 session={session} data={getMondai(7)} />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai8
+            session={session}
+            data1={getMondai(81)}
+            data2={getMondai(82)}
+            data3={getMondai(83)}
+            data4={getMondai(84)}
+          />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai9
+            session={session}
+            data1={getMondai(91)}
+            data2={getMondai(92)}
+            data3={getMondai(93)}
+            data4={getMondai(94)}
+          />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai10 session={session} data={getMondai(10)} />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai11 session={session} data={getMondai(11)} />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai12 session={session} data={getMondai(12)} />
+        </Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Mondai13 session={session} data={getMondai(13)} />
+        </Suspense>
       </div>
       <div className="mx-4 md:mx-8 space-y-2 pb-6 pt-0 md:space-y-5">
         <hr className="pb-4" />

@@ -37,6 +37,27 @@ export async function getJLPTListenDetail(
   return datas;
 }
 
+// TODO
+export async function getJLPTReadFullDetail(year: string, month: string) {
+  const mondais = await prisma.jlpt_mondai.findMany({
+    where: {
+      year: parseInt(year, 10),
+      month: parseInt(month, 10),
+    },
+  });
+
+  const questions = await prisma.jlpt_question.findMany({
+    where: {
+      year: parseInt(year, 10),
+      month: parseInt(month, 10),
+    },
+    orderBy: {
+      question_number: 'asc',
+    },
+  });
+  return { mondais, questions };
+}
+
 // Has cache function
 export async function getJLPTReadDetail(
   year: string,
