@@ -39,10 +39,12 @@ export default async function Navbar({ lang }: Props) {
           </Link>
           <ThemeSwitch />
         </div>
-        <div className="hidden md:flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div className="hidden md:flex md:order-2 space-x-3 md:space-x-0">
           <LocaleSwitcher />
         </div>
-        <LinkSwitcher lang={lang} dictionary={dictionary} session={session} />
+        <div>
+          <LinkSwitcher lang={lang} dictionary={dictionary} session={session} />
+        </div>
       </div>
     </nav>
   );

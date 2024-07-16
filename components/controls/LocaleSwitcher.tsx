@@ -1,10 +1,10 @@
 'use client';
+import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
-import { Locale, locales } from '@/i18n-config';
 import { usePathname } from 'next/navigation';
+import { Locale, locales } from '@/i18n-config';
 import { LanguageOption } from '@/types/common';
-import Link from 'next/link';
 
 export default function LocaleSwitcher() {
   const pathName = usePathname();
