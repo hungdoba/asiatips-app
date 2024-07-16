@@ -6,74 +6,30 @@ import { PostInfo, PostStatic } from '@/types/post';
 import MDXEditor from '@/components/forms/MDXEditor';
 import PostInfoEditor from '@/components/forms/PostInfoEditor';
 import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
-import { getPostUpdate, updatePost, createPost } from '@/utils/actions';
+import { updatePost, createPost } from '@/utils/actions';
 
 interface PostFormProps {
   mode: 'create' | 'update';
-  slug?: string;
+  initialPostStatic: PostStatic;
+  initialPostInfo: { [key: string]: PostInfo };
+  initialPostContent: { [key: string]: string };
 }
 
-const initialPostStatic: PostStatic = {
-  language: 'vi',
-  slug: '',
-  headerImage: undefined,
-  category: '',
-  tags: 'tips, ',
-  visible: true,
-};
-
-const initialPostInfo: PostInfo = {
-  title: '',
-  brief: '',
-  tableOfContent: '',
-};
-
-export default function PostForm({ mode, slug }: PostFormProps) {
+export default function PostForm({
+  initialPostStatic,
+  initialPostInfo,
+  initialPostContent,
+  mode,
+}: PostFormProps) {
   const [postStatic, setPostStatic] = useState<PostStatic>(initialPostStatic);
-  const [postInfo, setPostInfo] = useState<{ [key: string]: PostInfo }>({});
-  const [postContent, setPostContent] = useState<{ [key: string]: string }>({});
+  const [postInfo, setPostInfo] = useState<{ [key: string]: PostInfo }>(
+    initialPostInfo
+  );
+  const [postContent, setPostContent] = useState<{ [key: string]: string }>(
+    initialPostContent
+  );
   const [isDirty, setIsDirty] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    if (mode === 'update' && slug) {
-      const fetchData = async () => {
-        try {
-          const data = await getPostUpdate(slug);
-          const postData = data[0];
-
-          setPostStatic((prev) => ({
-            ...prev,
-            id: postData.id,
-            slug: postData.slug,
-            headerImage: postData.header_image,
-            category: postData.post_category,
-            tags: postData.tags.join(', '),
-            visible: postData.active ?? false,
-          }));
-
-          const info: { [key: string]: PostInfo } = {};
-          const content: { [key: string]: string } = {};
-
-          postData.post_translation.forEach((translation: any) => {
-            info[translation.language_code] = {
-              title: translation.post_title,
-              brief: translation.post_brief,
-              tableOfContent: translation.table_of_contents,
-            };
-            content[translation.language_code] = translation.post_content;
-          });
-
-          setPostInfo(info);
-          setPostContent(content);
-        } catch (error) {
-          console.error('Failed to fetch post data', error);
-        }
-      };
-
-      fetchData();
-    }
-  }, [mode, slug]);
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {

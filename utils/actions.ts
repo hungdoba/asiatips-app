@@ -3,6 +3,7 @@
 import prisma from '@/lib/prisma';
 import cloudinary from '@/lib/cloudinary';
 import { post_translation } from '@prisma/client';
+import { PostInfo, PostStatic } from '@/types/post';
 
 // NOTE: Refer unstable_cache for cache
 
@@ -68,6 +69,38 @@ export async function getPostUpdate(slug: string) {
   });
 
   return posts;
+}
+
+export async function fetchPostData(slug: string) {
+  const data = await prisma.post.findMany({
+    where: { slug: slug },
+    include: { post_translation: true },
+  });
+  const postData = data[0];
+
+  const postStatic: PostStatic = {
+    id: postData.id,
+    language: 'vi',
+    slug: postData.slug,
+    headerImage: postData.header_image,
+    category: postData.post_category,
+    tags: postData.tags.join(', '),
+    visible: postData.active ?? false,
+  };
+
+  const info: { [key: string]: PostInfo } = {};
+  const content: { [key: string]: string } = {};
+
+  postData.post_translation.forEach((translation: any) => {
+    info[translation.language_code] = {
+      title: translation.post_title,
+      brief: translation.post_brief,
+      tableOfContent: translation.table_of_contents,
+    };
+    content[translation.language_code] = translation.post_content;
+  });
+
+  return { postStatic, postInfo: info, postContent: content };
 }
 
 export async function updatePost(formData: FormData): Promise<any> {

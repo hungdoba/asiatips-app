@@ -1,3 +1,4 @@
+import { fetchPostData } from '@/utils/actions';
 import PostForm from '@/components/forms/PostForm';
 
 interface Props {
@@ -6,8 +7,16 @@ interface Props {
   };
 }
 
-const Update = ({ params }: Props) => {
-  return <PostForm mode="update" slug={params.slug} />;
-};
-
-export default Update;
+export default async function Update({ params }: Props) {
+  const { postStatic, postInfo, postContent } = await fetchPostData(
+    params.slug
+  );
+  return (
+    <PostForm
+      initialPostStatic={postStatic}
+      initialPostInfo={postInfo}
+      initialPostContent={postContent}
+      mode="update"
+    />
+  );
+}
