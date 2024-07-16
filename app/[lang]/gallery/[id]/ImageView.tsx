@@ -154,7 +154,7 @@ export default function ImageView({
         <div className="h-1/6 fixed bottom-0 text-white flex justify-center items-center w-full">
           <div
             ref={containerRef}
-            className="w-full max-w-5xl flex overflow-x-scroll space-x-2 p-4 bg-white bg-opacity-30 backdrop-blur-lg scrollbar-hidden rounded-lg"
+            className="w-full max-w-5xl flex overflow-x-scroll space-x-2 p-4 bg-white bg-opacity-30 backdrop-blur-lg scrollbar-hidden rounded-lg no-scrollbar"
           >
             {images.map((image: CloudImage, index: number) => (
               <div
