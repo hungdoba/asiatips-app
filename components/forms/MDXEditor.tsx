@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 import 'easymde/dist/easymde.min.css';
 import EasyMDE from 'easymde';
-import { uploadImage } from '@/utils/actions';
+import { uploadImage } from '@/actions/no-cache/image';
 
 interface Props {
   value: string;

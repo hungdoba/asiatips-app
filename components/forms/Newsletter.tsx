@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { subscribe } from '@/utils/actions';
+import { subscribe } from '@/actions/no-cache/subscribe';
 
 interface Props {
   dictionary: any;

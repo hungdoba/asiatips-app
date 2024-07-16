@@ -1,9 +1,54 @@
 'use server';
 
+import imagemin from 'imagemin';
 import cloudinary from '@/lib/cloudinary';
 import { CloudImage } from '@/types/image';
-import imagemin from 'imagemin';
 
+// For admin create, update post
+export async function deleteImage(public_id: string): Promise<boolean> {
+  try {
+    await cloudinary.uploader.destroy(public_id, function (result) {
+      return result;
+    });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// For admin create, update post
+export async function uploadImage(formData: FormData): Promise<string> {
+  const file = formData.get('image') as File;
+  const folder = formData.get('folder') as string;
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = new Uint8Array(arrayBuffer);
+
+  const now = new Date();
+  const localeTimestamp = now.toLocaleString().replace(/[^\w]/g, '_');
+
+  const result = await new Promise<any>((resolve, reject) => {
+    cloudinary.uploader
+      .upload_stream(
+        {
+          folder: folder ?? process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER,
+          public_id: `image_${localeTimestamp}`,
+          tags: ['asiatips.net app route'],
+        },
+        (error, result) => {
+          if (error) {
+            reject(error);
+            return;
+          }
+          resolve(result);
+        }
+      )
+      .end(buffer);
+  });
+  return result.secure_url;
+}
+
+// Has cache function
+// TODO: Add revalidate()
 export async function getImagesCount(): Promise<number> {
   try {
     const results = await cloudinary.search
@@ -12,7 +57,6 @@ export async function getImagesCount(): Promise<number> {
       )
       .execute();
 
-    // Extract the total count from the results
     const totalCount = results.total_count;
 
     return totalCount;
@@ -21,6 +65,8 @@ export async function getImagesCount(): Promise<number> {
   }
 }
 
+// Has cache function
+// TODO: Add revalidate()
 export async function getAllImages(): Promise<CloudImage[]> {
   try {
     const results = await cloudinary.search
@@ -49,7 +95,8 @@ export async function getAllImages(): Promise<CloudImage[]> {
   }
 }
 
-export async function getBlurDataUrl(
+// For gallery
+async function getBlurDataUrl(
   public_id: string,
   format: string
 ): Promise<string> {

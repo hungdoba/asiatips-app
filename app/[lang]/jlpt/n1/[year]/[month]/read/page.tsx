@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { auth } from '@/auth';
 import { Locale } from '@/i18n-config';
-import { getJLPTReadDetail } from './actions';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/read/Mondai';
 import Mondai7 from '@/components/jlpt/read/Mondai7';
@@ -11,6 +10,7 @@ import Mondai10 from '@/components/jlpt/read/Mondai10';
 import Mondai11 from '@/components/jlpt/read/Mondai11';
 import Mondai12 from '@/components/jlpt/read/Mondai12';
 import Mondai13 from '@/components/jlpt/read/Mondai13';
+import { getCacheJLPTReadDetail } from '@/actions/cache/jlpt';
 
 export default async function JLPTDetail({
   params,
@@ -19,26 +19,73 @@ export default async function JLPTDetail({
 }) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
-
-  const mondai1 = await getJLPTReadDetail(params.year, params.month, '1');
-  const mondai2 = await getJLPTReadDetail(params.year, params.month, '2');
-  const mondai3 = await getJLPTReadDetail(params.year, params.month, '3');
-  const mondai4 = await getJLPTReadDetail(params.year, params.month, '4');
-  const mondai5 = await getJLPTReadDetail(params.year, params.month, '5');
-  const mondai6 = await getJLPTReadDetail(params.year, params.month, '6');
-  const mondai7 = await getJLPTReadDetail(params.year, params.month, '7');
-  const mondai81 = await getJLPTReadDetail(params.year, params.month, '81');
-  const mondai82 = await getJLPTReadDetail(params.year, params.month, '82');
-  const mondai83 = await getJLPTReadDetail(params.year, params.month, '83');
-  const mondai84 = await getJLPTReadDetail(params.year, params.month, '84');
-  const mondai91 = await getJLPTReadDetail(params.year, params.month, '91');
-  const mondai92 = await getJLPTReadDetail(params.year, params.month, '92');
-  const mondai93 = await getJLPTReadDetail(params.year, params.month, '93');
-  const mondai94 = await getJLPTReadDetail(params.year, params.month, '94');
-  const mondai10 = await getJLPTReadDetail(params.year, params.month, '10');
-  const mondai11 = await getJLPTReadDetail(params.year, params.month, '11');
-  const mondai12 = await getJLPTReadDetail(params.year, params.month, '12');
-  const mondai13 = await getJLPTReadDetail(params.year, params.month, '13');
+  const mondai1 = await getCacheJLPTReadDetail(params.year, params.month, '1');
+  const mondai2 = await getCacheJLPTReadDetail(params.year, params.month, '2');
+  const mondai3 = await getCacheJLPTReadDetail(params.year, params.month, '3');
+  const mondai4 = await getCacheJLPTReadDetail(params.year, params.month, '4');
+  const mondai5 = await getCacheJLPTReadDetail(params.year, params.month, '5');
+  const mondai6 = await getCacheJLPTReadDetail(params.year, params.month, '6');
+  const mondai7 = await getCacheJLPTReadDetail(params.year, params.month, '7');
+  const mondai81 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '81'
+  );
+  const mondai82 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '82'
+  );
+  const mondai83 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '83'
+  );
+  const mondai84 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '84'
+  );
+  const mondai91 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '91'
+  );
+  const mondai92 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '92'
+  );
+  const mondai93 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '93'
+  );
+  const mondai94 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '94'
+  );
+  const mondai10 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '10'
+  );
+  const mondai11 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '11'
+  );
+  const mondai12 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '12'
+  );
+  const mondai13 = await getCacheJLPTReadDetail(
+    params.year,
+    params.month,
+    '13'
+  );
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">

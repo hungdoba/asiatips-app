@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { getAllImages } from './actions';
 import { CloudImage } from '@/types/image';
+import { getCacheAllImages } from '@/actions/cache/image';
 
 export default async function page() {
-  let images = await getAllImages();
+  let images = await getCacheAllImages();
 
   return (
     <div className="container w-full px-2 md:mx-auto md:max-w-5xl my-2 md:my-8">

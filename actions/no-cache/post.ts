@@ -1,77 +1,13 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import cloudinary from '@/lib/cloudinary';
+import { Locale } from '@/i18n-config';
+import { revalidateTag } from 'next/cache';
 import { post_translation } from '@prisma/client';
 import { PostInfo, PostStatic } from '@/types/post';
 
-// NOTE: Refer unstable_cache for cache
-
-export async function deleteImage(public_id: string): Promise<boolean> {
-  try {
-    await cloudinary.uploader.destroy(public_id, function (result) {
-      return result;
-    });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export async function uploadImage(formData: FormData): Promise<string> {
-  const file = formData.get('image') as File;
-  const folder = formData.get('folder') as string;
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = new Uint8Array(arrayBuffer);
-
-  const now = new Date();
-  const localeTimestamp = now.toLocaleString().replace(/[^\w]/g, '_');
-
-  const result = await new Promise<any>((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        {
-          folder: folder ?? process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER,
-          public_id: `image_${localeTimestamp}`,
-          tags: ['asiatips.net app route'],
-        },
-        (error, result) => {
-          if (error) {
-            reject(error);
-            return;
-          }
-          resolve(result);
-        }
-      )
-      .end(buffer);
-  });
-  return result.secure_url;
-}
-
-export async function subscribe(formData: FormData) {
-  const email = formData.get('email') as string;
-  try {
-    await prisma.subscribe.create({
-      data: {
-        email: email,
-      },
-    });
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-export async function getPostUpdate(slug: string) {
-  let posts = await prisma.post.findMany({
-    where: { slug: slug },
-    include: { post_translation: true },
-  });
-
-  return posts;
-}
-
-export async function fetchPostData(slug: string) {
+// For admin update
+export async function getPostData(slug: string) {
   const data = await prisma.post.findMany({
     where: { slug: slug },
     include: { post_translation: true },
@@ -103,6 +39,7 @@ export async function fetchPostData(slug: string) {
   return { postStatic, postInfo: info, postContent: content };
 }
 
+// For admin update
 export async function updatePost(formData: FormData): Promise<any> {
   const id = formData.get('id') as string;
   const slug = formData.get('slug') as string;
@@ -159,6 +96,7 @@ export async function updatePost(formData: FormData): Promise<any> {
       )
     );
 
+    revalidateTag('cache-post');
     return true;
   } catch (error) {
     console.error('Error updating post:', error);
@@ -166,6 +104,7 @@ export async function updatePost(formData: FormData): Promise<any> {
   }
 }
 
+// For admin update
 export async function createPost(formData: FormData): Promise<any> {
   const slug = formData.get('slug') as string;
   const post_category = formData.get('post_category') as string;
@@ -205,6 +144,7 @@ export async function createPost(formData: FormData): Promise<any> {
       },
     });
 
+    revalidateTag('cache-post');
     return { message: 'Post created successfully', data: newPost };
   } catch (error) {
     console.error('Error creating post:', error);
@@ -212,9 +152,30 @@ export async function createPost(formData: FormData): Promise<any> {
   }
 }
 
+// Has cache function
+export async function getAllPosts(): Promise<any> {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        active: true,
+      },
+      orderBy: {
+        updated_at: 'desc',
+      },
+    });
+    return posts;
+  } catch (error) {
+    throw new Error(`Error fetching posts: ${error}`);
+  }
+}
+
+// Has cache function
 export async function getAllFullPosts(lang?: string): Promise<any> {
   try {
     const posts = await prisma.post.findMany({
+      where: {
+        active: true,
+      },
       orderBy: {
         updated_at: 'desc',
       },
@@ -228,15 +189,28 @@ export async function getAllFullPosts(lang?: string): Promise<any> {
   }
 }
 
-export async function getAllPosts(): Promise<any> {
-  try {
-    const posts = await prisma.post.findMany({
-      orderBy: {
-        updated_at: 'desc',
-      },
-    });
-    return posts;
-  } catch (error) {
-    throw new Error(`Error fetching posts: ${error}`);
-  }
+// Has cache function
+export async function getPostByCategory(lang: Locale, category: string) {
+  let posts = await prisma.post.findMany({
+    where: { post_category: category },
+    include: {
+      post_translation: lang ? { where: { language_code: lang } } : true,
+    },
+  });
+  return posts;
+}
+
+// Has cache function
+export async function getPostDetail(
+  lang: Locale,
+  category: string,
+  slug: string
+) {
+  let posts = await prisma.post.findMany({
+    where: { post_category: category, slug: slug },
+    include: {
+      post_translation: lang ? { where: { language_code: lang } } : true,
+    },
+  });
+  return posts;
 }

@@ -3,7 +3,7 @@ import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/listen/Mondai';
 import Mondai5 from '@/components/jlpt/listen/Mondai5';
-import { getJLPTListenDetail } from './actions';
+import { getCacheJLPTListenDetail } from '@/actions/cache/jlpt';
 
 export default async function JLPTDetail({
   params,
@@ -12,11 +12,31 @@ export default async function JLPTDetail({
 }) {
   const dictionary = await getDictionary(params.lang);
 
-  const mondai1 = await getJLPTListenDetail(params.year, params.month, '1');
-  const mondai2 = await getJLPTListenDetail(params.year, params.month, '2');
-  const mondai3 = await getJLPTListenDetail(params.year, params.month, '3');
-  const mondai4 = await getJLPTListenDetail(params.year, params.month, '4');
-  const mondai5 = await getJLPTListenDetail(params.year, params.month, '5');
+  const mondai1 = await getCacheJLPTListenDetail(
+    params.year,
+    params.month,
+    '1'
+  );
+  const mondai2 = await getCacheJLPTListenDetail(
+    params.year,
+    params.month,
+    '2'
+  );
+  const mondai3 = await getCacheJLPTListenDetail(
+    params.year,
+    params.month,
+    '3'
+  );
+  const mondai4 = await getCacheJLPTListenDetail(
+    params.year,
+    params.month,
+    '4'
+  );
+  const mondai5 = await getCacheJLPTListenDetail(
+    params.year,
+    params.month,
+    '5'
+  );
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">

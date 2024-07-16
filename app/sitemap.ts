@@ -1,13 +1,13 @@
 import { locales } from '@/i18n-config';
-import { getAllPosts } from '@/utils/actions';
 import { post as PostType } from '@prisma/client';
-import { getJLPTTimes } from './[lang]/jlpt/actions';
-import { getImagesCount } from './[lang]/gallery/actions';
+import { getCacheAllPosts } from '@/actions/cache/post';
+import { getCacheImagesCount } from '@/actions/cache/image';
+import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
 
 export default async function sitemap() {
-  const postSlugs: PostType[] = await getAllPosts();
-  const jlptTimes: any = await getJLPTTimes();
-  const imagesCount = await getImagesCount();
+  const imagesCount = await getCacheImagesCount();
+  const jlptTimes: any = await getCacheJLPTTimes();
+  const postSlugs: PostType[] = await getCacheAllPosts();
 
   const sitemapEntries: any = [];
 

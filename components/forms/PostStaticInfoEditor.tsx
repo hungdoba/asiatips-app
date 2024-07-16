@@ -3,8 +3,8 @@ import { ChangeEvent, useState } from 'react';
 import Dropdown from '../controls/Dropdown';
 import { MenuItem } from '@/types/common';
 import { PostStatic } from '@/types/post';
-import { deleteImage, uploadImage } from '@/utils/actions';
 import { FiTrash, FiUploadCloud } from 'react-icons/fi';
+import { deleteImage, uploadImage } from '@/actions/no-cache/image';
 
 interface PostStaticInfoEditorProps {
   postStatic: PostStatic;

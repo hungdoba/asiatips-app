@@ -1,17 +1,7 @@
-import prisma from '@/lib/prisma';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import PostList from '@/components/layouts/PostList';
-
-async function getPostByCategory(lang: Locale, category: string) {
-  let posts = await prisma.post.findMany({
-    where: { post_category: category },
-    include: {
-      post_translation: lang ? { where: { language_code: lang } } : true,
-    },
-  });
-  return posts;
-}
+import { getCachePostByCategory } from '@/actions/cache/post';
 
 export default async function Category({
   params,
@@ -19,7 +9,7 @@ export default async function Category({
   params: { category: string; lang: Locale };
 }) {
   const dictionary = await getDictionary(params.lang);
-  const datas = await getPostByCategory(params.lang, params.category);
+  const datas = await getCachePostByCategory(params.lang, params.category);
   return (
     <PostList
       lang={params.lang}

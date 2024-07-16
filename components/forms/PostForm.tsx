@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { PostInfo, PostStatic } from '@/types/post';
 import MDXEditor from '@/components/forms/MDXEditor';
 import PostInfoEditor from '@/components/forms/PostInfoEditor';
 import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
-import { updatePost, createPost } from '@/utils/actions';
+import { createPost, updatePost } from '@/actions/no-cache/post';
 
 interface PostFormProps {
   mode: 'create' | 'update';
@@ -29,7 +28,6 @@ export default function PostForm({
     initialPostContent
   );
   const [isDirty, setIsDirty] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
@@ -87,7 +85,6 @@ export default function PostForm({
     if (result) {
       alert(`${mode === 'update' ? 'Update' : 'Creation'} Succeeded`);
       setIsDirty(false);
-      router.push('/');
     } else {
       alert(
         `${

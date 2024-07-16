@@ -1,5 +1,5 @@
 import ImageView from './ImageView';
-import { getAllImages } from '../actions';
+import { getCacheAllImages } from '@/actions/cache/image';
 
 interface Props {
   params: {
@@ -8,6 +8,6 @@ interface Props {
 }
 
 export default async function page({ params }: Props) {
-  const images = await getAllImages();
+  const images = await getCacheAllImages();
   return <ImageView images={images} initSelectedId={Number(params.id)} />;
 }

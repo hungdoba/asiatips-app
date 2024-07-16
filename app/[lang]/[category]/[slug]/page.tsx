@@ -1,23 +1,13 @@
 import { auth } from '@/auth';
 import Image from 'next/image';
-import prisma from '@/lib/prisma';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import { Locale } from '@/i18n-config';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getDictionary } from '@/get-dictionary';
+import { getCachePostDetail } from '@/actions/cache/post';
 import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
-
-async function getPostDetail(lang: Locale, category: string, slug: string) {
-  let posts = await prisma.post.findMany({
-    where: { post_category: category, slug: slug },
-    include: {
-      post_translation: lang ? { where: { language_code: lang } } : true,
-    },
-  });
-  return posts;
-}
 
 export default async function PostDetail({
   params,
@@ -26,7 +16,11 @@ export default async function PostDetail({
 }) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
-  const datas = await getPostDetail(params.lang, params.category, params.slug);
+  const datas = await getCachePostDetail(
+    params.lang,
+    params.category,
+    params.slug
+  );
 
   return (
     <div className="container mx-auto w-full my-4 md:max-w-5xl">

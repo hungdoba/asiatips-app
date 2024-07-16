@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { Locale } from '@/i18n-config';
-import { getJLPTTimes } from './actions';
 import { getDictionary } from '@/get-dictionary';
+import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
 
 export default async function JLPT({ params }: { params: { lang: Locale } }) {
   const dictionary = await getDictionary(params.lang);
-  const datas = await getJLPTTimes();
+  const datas = await getCacheJLPTTimes();
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
