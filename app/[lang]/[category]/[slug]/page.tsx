@@ -5,17 +5,40 @@ import rehypeSlug from 'rehype-slug';
 import { Locale } from '@/i18n-config';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getDictionary } from '@/get-dictionary';
+import { Metadata, ResolvingMetadata } from 'next';
 import { getCachePostDetail } from '@/actions/cache/post';
 import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
 
-export default async function PostDetail({
-  params,
-}: {
+interface Props {
   params: { category: string; slug: string; lang: Locale };
-}) {
+}
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const datas = await getCachePostDetail(
+    params.lang,
+    params.category,
+    params.slug
+  );
+
+  const previousImages = (await parent).openGraph?.images || [];
+
+  return {
+    title: datas[0].post_translation[0].post_title,
+    description: datas[0].post_translation[0].post_brief,
+    openGraph: {
+      images: [datas[0].header_image, ...previousImages],
+    },
+  };
+}
+
+export default async function PostDetail({ params }: Props) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
+  // Dublicated with function in generate metadata but it cache, so no problem
   const datas = await getCachePostDetail(
     params.lang,
     params.category,

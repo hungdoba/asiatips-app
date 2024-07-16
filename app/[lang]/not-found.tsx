@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+// TODO: Create 404, 500 page
 export default function NotFound() {
   return (
     <section className="bg-white dark:bg-gray-900">
