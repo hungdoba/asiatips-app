@@ -106,6 +106,7 @@ export default function ImageView({ images, initSelectedId }: Props) {
           {/* Button Close: Top Left */}
           <Link
             href={`./`}
+            aria-label="back to homepage"
             className="absolute top-0 left-0 p-2 bg-gray-700 bg-opacity-70 text-white rounded-full m-2"
           >
             <div className="w-4 h-4 flex justify-center items-center">
@@ -115,6 +116,7 @@ export default function ImageView({ images, initSelectedId }: Props) {
 
           {/* Button Back: Left Center */}
           <button
+            aria-label="previous image"
             className="absolute left-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
             onClick={handleBack}
           >
@@ -125,6 +127,7 @@ export default function ImageView({ images, initSelectedId }: Props) {
 
           {/* Button Next: Right Center */}
           <button
+            aria-label="next image"
             className="absolute right-4 top-1/2 bg-opacity-70 transform -translate-y-1/2 p-2 bg-gray-700 text-white rounded-full"
             onClick={handleNext}
           >
