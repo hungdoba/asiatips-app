@@ -10,8 +10,6 @@ export default function ThemeSwitch() {
 
   useEffect(() => setMounted(true), []);
 
-  if (!mounted) return <FiCloud className="text-blue-500" />;
-
   function handleChangeTheme(): void {
     if (resolvedTheme === 'dark') {
       setTheme('light');
@@ -22,7 +20,9 @@ export default function ThemeSwitch() {
 
   return (
     <div className="p-4 hover:cursor-pointer" onClick={handleChangeTheme}>
-      {resolvedTheme === 'dark' ? (
+      {!mounted ? (
+        <FiCloud className="text-blue-500" />
+      ) : resolvedTheme === 'dark' ? (
         <FiMoon className="text-gray-400" />
       ) : (
         <FiSun className="text-orange-600 hover:cursor-pointer" />
