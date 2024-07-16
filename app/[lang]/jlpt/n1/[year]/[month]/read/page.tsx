@@ -13,17 +13,14 @@ import Mondai12 from '@/components/jlpt/read/Mondai12';
 import Mondai13 from '@/components/jlpt/read/Mondai13';
 import { getCacheJLPTReadFullDetail } from '@/actions/cache/jlpt';
 
-export default async function JLPTDetail({
-  params,
-}: {
-  params: { lang: Locale; year: string; month: string };
-}) {
-  const session = await auth();
-  const dictionary = await getDictionary(params.lang);
-  const { mondais, questions } = await getCacheJLPTReadFullDetail(
-    params.year,
-    params.month
-  );
+type MondaiContentProps = {
+  year: string;
+  month: string;
+  session: any;
+};
+
+async function MondaiContent({ year, month, session }: MondaiContentProps) {
+  const { mondais, questions } = await getCacheJLPTReadFullDetail(year, month);
 
   function getMondai(mondaiNumber: number) {
     const mondai = mondais.filter(
@@ -35,16 +32,49 @@ export default async function JLPTDetail({
     return { mondais: mondai, questions: question };
   }
 
-  const renderMondaiComponents = () =>
-    [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
-      <Suspense key={index} fallback={<p>Loading...</p>}>
-        <Mondai
-          session={session}
-          data={getMondai(mondaiNumber)}
-          mondai_number={mondaiNumber}
-        />
-      </Suspense>
+  const renderMondai1to6 = () =>
+    [1, 2, 3, 4, 5, 6].map((mondaiNumber) => (
+      <Mondai
+        key={mondaiNumber}
+        session={session}
+        data={getMondai(mondaiNumber)}
+        mondai_number={mondaiNumber}
+      />
     ));
+
+  return (
+    <div>
+      {renderMondai1to6()}
+      <Mondai7 session={session} data={getMondai(7)} />
+      <Mondai8
+        session={session}
+        data1={getMondai(81)}
+        data2={getMondai(82)}
+        data3={getMondai(83)}
+        data4={getMondai(84)}
+      />
+      <Mondai9
+        session={session}
+        data1={getMondai(91)}
+        data2={getMondai(92)}
+        data3={getMondai(93)}
+        data4={getMondai(94)}
+      />
+      <Mondai10 session={session} data={getMondai(10)} />
+      <Mondai11 session={session} data={getMondai(11)} />
+      <Mondai12 session={session} data={getMondai(12)} />
+      <Mondai13 session={session} data={getMondai(13)} />
+    </div>
+  );
+}
+
+type JLPTDetailProps = {
+  params: { lang: Locale; year: string; month: string };
+};
+
+export default async function JLPTDetail({ params }: JLPTDetailProps) {
+  const session = await auth();
+  const dictionary = await getDictionary(params.lang);
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
@@ -57,45 +87,18 @@ export default async function JLPTDetail({
             <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
               {`${params.year} - ${params.month}`}
             </p>
-            <Link href={`./listen`}>{dictionary.jlpt.gotoListen}</Link>
+            <Link href="./listen">{dictionary.jlpt.gotoListen}</Link>
           </div>
         </div>
         <hr />
       </div>
       <div className="underline-offset-4">
-        {renderMondaiComponents()}
         <Suspense fallback={<p>Loading...</p>}>
-          <Mondai7 session={session} data={getMondai(7)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai8
+          <MondaiContent
+            year={params.year}
+            month={params.month}
             session={session}
-            data1={getMondai(81)}
-            data2={getMondai(82)}
-            data3={getMondai(83)}
-            data4={getMondai(84)}
           />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai9
-            session={session}
-            data1={getMondai(91)}
-            data2={getMondai(92)}
-            data3={getMondai(93)}
-            data4={getMondai(94)}
-          />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai10 session={session} data={getMondai(10)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai11 session={session} data={getMondai(11)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai12 session={session} data={getMondai(12)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai13 session={session} data={getMondai(13)} />
         </Suspense>
       </div>
       <div className="mx-4 md:mx-8 space-y-2 pb-6 pt-0 md:space-y-5">
@@ -104,7 +107,7 @@ export default async function JLPTDetail({
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
             {`${params.year} - ${params.month}`}
           </p>
-          <Link href={`./listen`}>{dictionary.jlpt.gotoListen}</Link>
+          <Link href="./listen">{dictionary.jlpt.gotoListen}</Link>
         </div>
       </div>
     </div>
