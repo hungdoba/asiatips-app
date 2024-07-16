@@ -34,14 +34,20 @@ export default async function RootLayout({
       suppressHydrationWarning
       className="scroll-smooth scroll-pt-4"
     >
-      <body className={inter.className}>
+      <body
+        className={`${inter.className} flex flex-col min-h-screen bg-white text-black dark:bg-slate-800 dark:text-gray-300`}
+      >
         <Providers>
-          <div className="bg-white text-black dark:bg-slate-800 dark:text-gray-300">
+          <header>
             <Navbar lang={params.lang} />
+          </header>
+          <main className="flex-grow flex items-center justify-center">
             {children}
+          </main>
+          <footer>
             <Footer lang={params.lang} />
-            <SpeedInsights />
-          </div>
+          </footer>
+          <SpeedInsights />
         </Providers>
       </body>
     </html>

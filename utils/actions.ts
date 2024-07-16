@@ -4,6 +4,8 @@ import prisma from '@/lib/prisma';
 import cloudinary from '@/lib/cloudinary';
 import { post_translation } from '@prisma/client';
 
+// NOTE: Refer unstable_cache for cache
+
 export async function deleteImage(public_id: string): Promise<boolean> {
   try {
     await cloudinary.uploader.destroy(public_id, function (result) {

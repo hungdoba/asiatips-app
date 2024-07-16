@@ -41,7 +41,7 @@ export default async function JLPTDetail({
   const mondai13 = await getJLPTReadDetail(params.year, params.month, '13');
 
   return (
-    <main className="container mx-auto w-full mt-4 md:max-w-5xl">
+    <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
         <div className="space-y-2 pb-8 md:pt-6 md:space-y-5">
           <h1 className="text-2xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-4xl md:leading-14">
@@ -92,6 +92,6 @@ export default async function JLPTDetail({
           <Link href={`./listen`}>{dictionary.jlpt.gotoListen}</Link>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

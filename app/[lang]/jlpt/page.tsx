@@ -7,7 +7,7 @@ export default async function JLPT({ params }: { params: { lang: Locale } }) {
   const dictionary = await getDictionary(params.lang);
   const datas = await getJLPTTimes();
   return (
-    <main className="container mx-auto w-full mt-4 md:max-w-5xl">
+    <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
         <div className="space-y-2 pb-8 md:pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
@@ -61,6 +61,6 @@ export default async function JLPT({ params }: { params: { lang: Locale } }) {
           </ul>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

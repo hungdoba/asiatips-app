@@ -6,7 +6,7 @@ import { CloudImage } from '@/types/image';
 export default async function page() {
   let images = await getAllImages();
   return (
-    <main className="z-10 px-2 container md:mx-auto w-full md:max-w-5xl my-8">
+    <div className="z-10 px-2 container md:mx-auto w-full md:max-w-5xl my-8">
       <div className="columns-2 gap-2 md:gap-4 md:columns-3">
         {images.map((image: CloudImage) => (
           <Link
@@ -26,6 +26,6 @@ export default async function page() {
           </Link>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

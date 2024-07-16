@@ -17,7 +17,7 @@ export default async function Footer({ lang }: Props) {
   const session = await auth();
 
   return (
-    <footer className="bg-gray-200 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <div className="bg-gray-200 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="p-4 mx-auto max-w-screen-xl lg:pt-16 lg:pb-8 lg:px-6">
         <Newsletter dictionary={dictionary} />
       </div>
@@ -64,6 +64,6 @@ export default async function Footer({ lang }: Props) {
           <div>{` • `}</div>
         </div>
       </div>
-    </footer>
+    </div>
   );
 }

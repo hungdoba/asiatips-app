@@ -29,7 +29,7 @@ export default async function PostDetail({
   const datas = await getPostDetail(params.lang, params.category, params.slug);
 
   return (
-    <main className="container mx-auto w-full my-4 md:max-w-5xl">
+    <div className="container mx-auto w-full my-4 md:max-w-5xl">
       <div className="flex flex-col md:flex-row mx-4 md:mx-8">
         {/* Table of Content */}
         <div className="w-full md:w-1/4">
@@ -73,6 +73,6 @@ export default async function PostDetail({
           </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }
