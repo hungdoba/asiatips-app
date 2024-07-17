@@ -36,7 +36,7 @@ export default async function PostCard({
           <p className="hidden md:block font-normal">
             {data.post_translation[0].post_brief}
           </p>
-          <p className="font-semibold text-sm mb-2 text-gray-400">
+          <p className="font-semibold text-sm my-2 md:my-4 text-gray-600 dark:text-gray-400">
             {new Date(data.created_at).toLocaleDateString()}
           </p>
           <Link href={`/${lang}/${data.post_category}/${data.slug}`}>
