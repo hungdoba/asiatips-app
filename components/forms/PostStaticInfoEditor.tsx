@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
-import Dropdown from '../controls/Dropdown';
+import toast from 'react-hot-toast';
 import { MenuItem } from '@/types/common';
 import { PostStatic } from '@/types/post';
+import Dropdown from '../controls/Dropdown';
+import { ChangeEvent, useState } from 'react';
 import { FiTrash, FiUploadCloud } from 'react-icons/fi';
 import { deleteImage, uploadImage } from '@/actions/no-cache/image';
 
@@ -61,10 +62,10 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
           );
           const imageUrl = await uploadImage(formData);
           if (imageUrl) onChange({ ...postStatic, headerImage: imageUrl });
-          else alert('Upload image failed');
+          else toast.error('Upload image failed');
         } catch (error) {
           console.error('Error uploading image:', error);
-          alert('Upload image failed');
+          toast.error('Upload image failed');
         }
       }
     }
@@ -92,13 +93,18 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
       publicId = `${process.env.NEXT_PUBLIC_CLOUDINARY_POST_FOLDER}/${publicId}`;
       const result = await deleteImage(publicId);
       SetDeleteSuccessed(result);
+      if (result) {
+        toast.success('Delete image successed');
+      } else {
+        toast.error('Delete image failed');
+      }
       if (isHeaderImage) {
         if (result) {
           onChange({ ...postStatic, headerImage: undefined });
         }
       }
     } else {
-      alert('Can not find the public id');
+      toast.error('Can not find the public id');
     }
   }
 

@@ -5,6 +5,8 @@ import 'easymde/dist/easymde.min.css';
 import EasyMDE from 'easymde';
 import { uploadImage } from '@/actions/no-cache/image';
 
+import toast, { Toaster } from 'react-hot-toast';
+
 interface Props {
   value: string;
   onChange: (value: string) => void;
@@ -31,8 +33,9 @@ export default function MDXEditor({ value, onChange }: Props) {
         const imageUrl = await uploadImage(formData);
         if (imageUrl) {
           onSuccess(imageUrl);
+          toast.success('Upload image successed');
         } else {
-          alert('Upload image fail');
+          toast.error('Upload image fail');
         }
       } catch (error) {
         console.error('Error uploading image:', error);

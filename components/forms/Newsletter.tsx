@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { subscribe } from '@/actions/no-cache/subscribe';
 
 interface Props {
@@ -16,9 +17,9 @@ export default function Newsletter({ dictionary }: Props) {
     formData.append('email', email);
     const result = await subscribe(formData);
     if (result == true) {
-      alert('Success');
+      toast.success(dictionary.footer.successMessage);
     } else {
-      alert('Fail');
+      toast.error(dictionary.footer.failMessage);
     }
   };
 
@@ -52,7 +53,7 @@ export default function Newsletter({ dictionary }: Props) {
           <div className="w-1/4">
             <button
               type="submit"
-              className="bg-gray-400 dark:bg-gray-800 py-3 px-5 w-full text-sm font-medium text-center rounded-r-lg border border-gray-300 dark:border-gray-500 cursor-pointer focus:ring-4"
+              className="bg-gray-400 dark:bg-gray-800 hover:bg-gray-500 dark:hover:bg-gray-900 py-3 px-5 w-full text-sm font-medium text-center rounded-r-lg border border-gray-300 dark:border-gray-500 cursor-pointer"
             >
               {dictionary.footer.subscribe}
             </button>

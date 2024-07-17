@@ -9,6 +9,7 @@ import Footer from '@/components/layouts/Footer';
 
 import { Providers } from './providers';
 import { i18n, Locale } from '@/i18n-config';
+import { Toaster } from 'react-hot-toast';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -37,6 +38,10 @@ export default async function RootLayout({
       <body
         className={`${inter.className} flex flex-col min-h-screen bg-white text-black dark:bg-slate-800 dark:text-gray-300`}
       >
+        <div>
+          {/* Show notification */}
+          <Toaster />
+        </div>
         <Providers>
           <header>
             <Navbar lang={params.lang} />

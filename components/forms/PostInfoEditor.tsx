@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { PostInfo } from '@/types/post';
 import { signOut } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 interface PostInfoEditorProps {
   postInfo: PostInfo;
@@ -33,7 +34,7 @@ const PostInfoEditor: React.FC<PostInfoEditorProps> = ({
     const headings = postContent.match(/^(#+)(.*)/gm);
 
     if (!headings || headings.length === 0) {
-      alert('No headings found.');
+      toast.error('No headings found.');
       return '';
     }
 

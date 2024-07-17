@@ -6,6 +6,7 @@ import MDXEditor from '@/components/forms/MDXEditor';
 import PostInfoEditor from '@/components/forms/PostInfoEditor';
 import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
 import { createPost, updatePost } from '@/actions/no-cache/post';
+import toast from 'react-hot-toast';
 
 interface PostFormProps {
   mode: 'create' | 'update';
@@ -83,10 +84,10 @@ export default function PostForm({
     }
 
     if (result) {
-      alert(`${mode === 'update' ? 'Update' : 'Creation'} Succeeded`);
+      toast.success(`${mode === 'update' ? 'Update' : 'Creation'} Succeeded`);
       setIsDirty(false);
     } else {
-      alert(
+      toast.error(
         `${
           mode === 'update' ? 'Update' : 'Creation'
         } Failed: Check the console for details`
