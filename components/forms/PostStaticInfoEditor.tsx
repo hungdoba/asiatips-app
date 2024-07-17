@@ -104,7 +104,7 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
 
   return (
     <form className="mx-auto md:mr-4">
-      <div className="relative w-full mb-5 group">
+      <div className="relative w-full mb-5 group z-10">
         <Dropdown menuItems={menuItems} onSelect={handleLanguageSelect} />
       </div>
       <div className="relative w-full mb-5 group">
