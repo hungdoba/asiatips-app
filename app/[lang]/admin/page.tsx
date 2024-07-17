@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { auth } from '@/auth';
 import {
   RevalidateGalleryButton,
+  RevalidatePostButton,
   SignInButton,
   SignOutButton,
 } from '@/components/controls/Button';
@@ -29,8 +30,9 @@ export default async function SignIn() {
       >
         Create New Post
       </Link>
-      <SignOutButton />
       <RevalidateGalleryButton />
+      <RevalidatePostButton />
+      <SignOutButton />
     </div>
   );
 }
