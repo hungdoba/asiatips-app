@@ -37,6 +37,7 @@ export default function Mondai5({ questions }: Props) {
               <h2 className="mb-4">
                 3番、まず話を聞いてください。それから、二つの質問を聞いて、それぞれ問題用紙の(1)から(4)の中から、最もよいものを一つ選んでください。
               </h2>
+              {/* TODO: Check some case doesn't has 3 questions */}
               <Question
                 question={questions[2]}
                 hintShowed={showHint}

@@ -93,7 +93,12 @@ export default function AudioPlayer({ src }: Props) {
         {hasError ? (
           <FiAlertTriangle className="w-6 h-6 text-red-500" />
         ) : (
-          <button onClick={togglePlayPause} className="text-blue-500">
+          <button
+            type="button"
+            aria-label="play audio"
+            onClick={togglePlayPause}
+            className="text-blue-500"
+          >
             {isPlaying ? (
               <FiPause className="w-6 h-6" />
             ) : (

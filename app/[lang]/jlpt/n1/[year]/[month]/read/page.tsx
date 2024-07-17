@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { auth } from '@/auth';
-import { Suspense } from 'react';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/read/Mondai';
@@ -37,13 +36,12 @@ export default async function JLPTDetail({
 
   const renderMondaiComponents = () =>
     [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
-      <Suspense key={index} fallback={<p>Loading...</p>}>
-        <Mondai
-          session={session}
-          data={getMondai(mondaiNumber)}
-          mondai_number={mondaiNumber}
-        />
-      </Suspense>
+      <Mondai
+        key={index}
+        session={session}
+        data={getMondai(mondaiNumber)}
+        mondai_number={mondaiNumber}
+      />
     ));
 
   return (
@@ -64,39 +62,25 @@ export default async function JLPTDetail({
       </div>
       <div className="underline-offset-4">
         {renderMondaiComponents()}
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai7 session={session} data={getMondai(7)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai8
-            session={session}
-            data1={getMondai(81)}
-            data2={getMondai(82)}
-            data3={getMondai(83)}
-            data4={getMondai(84)}
-          />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai9
-            session={session}
-            data1={getMondai(91)}
-            data2={getMondai(92)}
-            data3={getMondai(93)}
-            data4={getMondai(94)}
-          />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai10 session={session} data={getMondai(10)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai11 session={session} data={getMondai(11)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai12 session={session} data={getMondai(12)} />
-        </Suspense>
-        <Suspense fallback={<p>Loading...</p>}>
-          <Mondai13 session={session} data={getMondai(13)} />
-        </Suspense>
+        <Mondai7 session={session} data={getMondai(7)} />
+        <Mondai8
+          session={session}
+          data1={getMondai(81)}
+          data2={getMondai(82)}
+          data3={getMondai(83)}
+          data4={getMondai(84)}
+        />
+        <Mondai9
+          session={session}
+          data1={getMondai(91)}
+          data2={getMondai(92)}
+          data3={getMondai(93)}
+          data4={getMondai(94)}
+        />
+        <Mondai10 session={session} data={getMondai(10)} />
+        <Mondai11 session={session} data={getMondai(11)} />
+        <Mondai12 session={session} data={getMondai(12)} />
+        <Mondai13 session={session} data={getMondai(13)} />
       </div>
       <div className="mx-4 md:mx-8 space-y-2 pb-6 pt-0 md:space-y-5">
         <hr className="pb-4" />

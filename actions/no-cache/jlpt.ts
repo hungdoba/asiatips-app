@@ -22,22 +22,17 @@ export async function getJLPTTimes() {
 }
 
 // Has cache function
-export async function getJLPTListenDetail(
-  year: string,
-  month: string,
-  mondai: string
-) {
+export async function getJLPTListenFullDetail(year: string, month: string) {
   const datas = await prisma.jlpt_chokai.findMany({
     where: {
       year: parseInt(year, 10),
       month: parseInt(month, 10),
-      mondai_number: parseInt(mondai),
     },
   });
   return datas;
 }
 
-// TODO
+// Has cache function
 export async function getJLPTReadFullDetail(year: string, month: string) {
   const mondais = await prisma.jlpt_mondai.findMany({
     where: {
@@ -50,33 +45,6 @@ export async function getJLPTReadFullDetail(year: string, month: string) {
     where: {
       year: parseInt(year, 10),
       month: parseInt(month, 10),
-    },
-    orderBy: {
-      question_number: 'asc',
-    },
-  });
-  return { mondais, questions };
-}
-
-// Has cache function
-export async function getJLPTReadDetail(
-  year: string,
-  month: string,
-  mondai: string
-) {
-  const mondais = await prisma.jlpt_mondai.findMany({
-    where: {
-      year: parseInt(year, 10),
-      month: parseInt(month, 10),
-      mondai_number: parseInt(mondai),
-    },
-  });
-
-  const questions = await prisma.jlpt_question.findMany({
-    where: {
-      year: parseInt(year, 10),
-      month: parseInt(month, 10),
-      mondai_number: parseInt(mondai),
     },
     orderBy: {
       question_number: 'asc',
