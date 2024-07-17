@@ -18,13 +18,16 @@ export default function loading() {
       </div>
       <div className="container mx-auto w-full mt-4 md:max-w-5xl animate-pulse">
         <div className="mx-4 md:mx-8">
-          {elements.map(() => (
-            <div className="flex flex-col mb-4 md:mb-8 md:mt-8">
+          {elements.map((element) => (
+            <div key={element} className="flex flex-col mb-4 md:mb-8 md:mt-8">
               <h2 className="mb-4">
                 <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-72 md:w-96 mb-4" />
               </h2>
-              {elements.map(() => (
-                <div className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5" />
+              {elements.map((element) => (
+                <div
+                  key={element}
+                  className="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"
+                />
               ))}
             </div>
           ))}
