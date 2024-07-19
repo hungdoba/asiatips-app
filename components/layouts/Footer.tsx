@@ -7,6 +7,7 @@ import { SignInIcon, SignOutIcon } from '../controls/Icon';
 import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
 import { getDictionary } from '@/get-dictionary';
+import { Suspense } from 'react';
 
 interface Props {
   lang: Locale;
@@ -53,12 +54,14 @@ export default async function Footer({ lang }: Props) {
         <div className="mb-2 flex flex-row items-center space-x-2 text-sm">
           <div>{` • `}</div>
           <div>Asiatips.net</div>
-          <div>
+          <Suspense fallback={<p>...</p>}>
             <ThemeSwitch />
-          </div>
+          </Suspense>
           <div>{` • `}</div>
           <div>{`© ${new Date().getFullYear()}`}</div>
-          {session ? <SignOutIcon /> : <SignInIcon />}
+          <Suspense fallback={<p>...</p>}>
+            {session ? <SignOutIcon /> : <SignInIcon />}
+          </Suspense>
           <div>{` • `}</div>
           <div>All rights reserved</div>
           <div>{` • `}</div>

@@ -10,7 +10,7 @@ interface Props {
   lang: Locale;
 }
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import LinkSwitcher from '../controls/LinkSwitcher';
 
 export default async function Navbar({ lang }: Props) {
@@ -37,13 +37,21 @@ export default async function Navbar({ lang }: Props) {
               }}
             />
           </Link>
-          <ThemeSwitch />
+          <Suspense fallback={<p>...</p>}>
+            <ThemeSwitch />
+          </Suspense>
         </div>
         <div className="hidden md:flex md:order-2 space-x-3 md:space-x-0">
           <LocaleSwitcher />
         </div>
         <div>
-          <LinkSwitcher lang={lang} dictionary={dictionary} session={session} />
+          <Suspense fallback={<p>...</p>}>
+            <LinkSwitcher
+              lang={lang}
+              dictionary={dictionary}
+              session={session}
+            />
+          </Suspense>
         </div>
       </div>
     </nav>
