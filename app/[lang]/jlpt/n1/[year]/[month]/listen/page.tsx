@@ -1,9 +1,24 @@
 import Link from 'next/link';
-import { Locale } from '@/i18n-config';
+import { Locale, locales } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/listen/Mondai';
 import Mondai5 from '@/components/jlpt/listen/Mondai5';
-import { getCacheJLPTListenFullDetail } from '@/actions/cache/jlpt';
+import {
+  getCacheJLPTListenFullDetail,
+  getCacheJLPTTimes,
+} from '@/actions/cache/jlpt';
+
+export async function generateStaticParams() {
+  const jlptTimes: any = await getCacheJLPTTimes();
+
+  return locales.flatMap((locale) =>
+    jlptTimes.map((time: any) => ({
+      lang: locale.locale,
+      year: time.year.toString(),
+      month: time.month.toString(),
+    }))
+  );
+}
 
 export default async function JLPTDetail({
   params,

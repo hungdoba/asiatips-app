@@ -5,7 +5,7 @@ const Create = () => {
   const postStatic: PostStatic = {
     language: 'vi',
     slug: '',
-    headerImage: undefined,
+    headerImage: '',
     category: 'tips',
     tags: 'tips, ',
     visible: true,

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { auth } from '@/auth';
-import { Locale } from '@/i18n-config';
+import { Locale, locales } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import Mondai from '@/components/jlpt/read/Mondai';
 import Mondai7 from '@/components/jlpt/read/Mondai7';
@@ -10,7 +10,22 @@ import Mondai10 from '@/components/jlpt/read/Mondai10';
 import Mondai11 from '@/components/jlpt/read/Mondai11';
 import Mondai12 from '@/components/jlpt/read/Mondai12';
 import Mondai13 from '@/components/jlpt/read/Mondai13';
-import { getCacheJLPTReadFullDetail } from '@/actions/cache/jlpt';
+import {
+  getCacheJLPTReadFullDetail,
+  getCacheJLPTTimes,
+} from '@/actions/cache/jlpt';
+
+export async function generateStaticParams() {
+  const jlptTimes: any = await getCacheJLPTTimes();
+
+  return locales.flatMap((locale) =>
+    jlptTimes.map((time: any) => ({
+      lang: locale.locale,
+      year: time.year.toString(),
+      month: time.month.toString(),
+    }))
+  );
+}
 
 export default async function JLPTDetail({
   params,

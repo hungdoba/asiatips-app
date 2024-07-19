@@ -1,10 +1,23 @@
+import { getImagesCount } from '@/actions/no-cache/image';
 import ImageView from './ImageView';
 import { getCacheAllImages } from '@/actions/cache/image';
+import { locales } from '@/i18n-config';
 
 interface Props {
   params: {
     id: number;
   };
+}
+
+export async function generateStaticParams() {
+  const imagesCount = await getImagesCount();
+
+  return locales.flatMap((locale) =>
+    Array.from({ length: imagesCount }, (_, i) => ({
+      lang: locale.locale,
+      id: i.toString(),
+    }))
+  );
 }
 
 export default async function page({ params }: Props) {
