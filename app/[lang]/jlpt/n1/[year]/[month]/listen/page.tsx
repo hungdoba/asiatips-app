@@ -10,7 +10,6 @@ import {
 
 export async function generateStaticParams() {
   const jlptTimes: any = await getCacheJLPTTimes();
-
   return locales.flatMap((locale) =>
     jlptTimes.map((time: any) => ({
       lang: locale.locale,

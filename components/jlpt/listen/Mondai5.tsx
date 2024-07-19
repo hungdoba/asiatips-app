@@ -18,6 +18,8 @@ export default function Mondai5({ questions }: Props) {
   const [q1selectedOption, setQ1SelectedOption] = useState(0);
   const [q2selectedOption, setQ2SelectedOption] = useState(0);
 
+  const is3Questions = questions.length == 3;
+
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
@@ -29,24 +31,30 @@ export default function Mondai5({ questions }: Props) {
           <div className="flex flex-row  mb-2">
             <div className="flex flex-col">
               <h2 className="mb-4">
-                1番、2番、問題用紙に何も印刷されていません。まず話を聞いてください。それから、質問とせんたくしを聞いて、(1)から
+                {`
+                1番、${
+                  is3Questions && '2番、'
+                }問題用紙に何も印刷されていません。まず話を聞いてください。それから、質問とせんたくしを聞いて、(1)から
                 (4)の中から、最もよいものを一つ選んでください。
+                `}
               </h2>
               <QAE question={questions[0]} />
-              <QAE question={questions[1]} />
+              {is3Questions && <QAE question={questions[1]} />}
               <h2 className="mb-4">
-                3番、まず話を聞いてください。それから、二つの質問を聞いて、それぞれ問題用紙の(1)から(4)の中から、最もよいものを一つ選んでください。
+                {`
+                ${is3Questions ? '3番' : '2番'}
+                、まず話を聞いてください。それから、二つの質問を聞いて、それぞれ問題用紙の(1)から(4)の中から、最もよいものを一つ選んでください。
+                `}
               </h2>
-              {/* TODO: Check some case doesn't has 3 questions */}
               <Question
-                question={questions[2]}
+                question={is3Questions ? questions[2] : questions[1]}
                 hintShowed={showHint}
                 showHint={() => setShowHint(!showHint)}
               />
 
               <h3 className="mb-4">質問１</h3>
               <Answer
-                question={questions[2]}
+                question={is3Questions ? questions[2] : questions[1]}
                 selectOption={(value: number) => setQ1SelectedOption(value)}
                 selectedOption={q1selectedOption}
                 hintShowed={showHint}
@@ -55,7 +63,7 @@ export default function Mondai5({ questions }: Props) {
 
               <h3 className="mb-4">質問２</h3>
               <Answer
-                question={questions[2]}
+                question={is3Questions ? questions[2] : questions[1]}
                 selectOption={(value: number) => setQ2SelectedOption(value)}
                 selectedOption={q2selectedOption}
                 hintShowed={showHint}

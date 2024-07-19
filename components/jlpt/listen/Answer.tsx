@@ -38,22 +38,24 @@ export default function Answer({
   showExplain,
 }: Props) {
   return (
-    <div className="flex flex-wrap justify-between mb-4 ml-4">
-      {[1, 2, 3, 4].map(
-        (optionNumber) =>
-          (optionNumber <= 3 || question.mondai_number !== 4) && (
-            <AnswerOption
-              key={optionNumber}
-              optionNumber={optionNumber}
-              optionText={getOptionText(question, optionNumber)}
-              isCorrectAnswer={question.answer === optionNumber}
-              showHint={hintShowed}
-              showExplain={showExplain}
-              selected={selectedOption === optionNumber}
-              select={() => selectOption(optionNumber)}
-            />
-          )
-      )}
-    </div>
+    question && (
+      <div className="flex flex-wrap justify-between mb-4 ml-4">
+        {[1, 2, 3, 4].map(
+          (optionNumber) =>
+            (optionNumber <= 3 || question.mondai_number !== 4) && (
+              <AnswerOption
+                key={optionNumber}
+                optionNumber={optionNumber}
+                optionText={getOptionText(question, optionNumber)}
+                isCorrectAnswer={question.answer === optionNumber}
+                showHint={hintShowed}
+                showExplain={showExplain}
+                selected={selectedOption === optionNumber}
+                select={() => selectOption(optionNumber)}
+              />
+            )
+        )}
+      </div>
+    )
   );
 }
