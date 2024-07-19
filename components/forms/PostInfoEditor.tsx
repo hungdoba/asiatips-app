@@ -1,9 +1,8 @@
-import Link from 'next/link';
-import { PostInfo } from '@/types/post';
-import { signOut } from 'next-auth/react';
 import toast from 'react-hot-toast';
+import { PostInfo } from '@/types/post';
 
 interface PostInfoEditorProps {
+  mode: 'create' | 'update';
   postInfo: PostInfo;
   postContent: string;
   onChange: (postInfo: PostInfo) => void;
@@ -11,6 +10,7 @@ interface PostInfoEditorProps {
 }
 
 const PostInfoEditor: React.FC<PostInfoEditorProps> = ({
+  mode,
   postInfo,
   postContent,
   onChange,
@@ -105,21 +105,7 @@ const PostInfoEditor: React.FC<PostInfoEditorProps> = ({
         onClick={onSave}
         className="w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
       >
-        Post
-      </button>
-      <button
-        type="button"
-        className="w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-      >
-        <Link href={`/`}>Home Page</Link>
-      </button>
-
-      <button
-        type="button"
-        onClick={() => signOut()}
-        className="w-full py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-      >
-        Sign out
+        {`${mode.toLocaleUpperCase()} POST`}
       </button>
     </form>
   );

@@ -1,14 +1,14 @@
 'use client';
 
+import toast from 'react-hot-toast';
 import { useEffect, useState } from 'react';
 import { PostInfo, PostStatic } from '@/types/post';
 import MDXEditor from '@/components/forms/MDXEditor';
 import PostInfoEditor from '@/components/forms/PostInfoEditor';
-import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
 import { createPost, updatePost } from '@/actions/no-cache/post';
-import toast from 'react-hot-toast';
+import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
 
-interface PostFormProps {
+interface Props {
   mode: 'create' | 'update';
   initialPostStatic: PostStatic;
   initialPostInfo: { [key: string]: PostInfo };
@@ -20,7 +20,7 @@ export default function PostForm({
   initialPostInfo,
   initialPostContent,
   mode,
-}: PostFormProps) {
+}: Props) {
   const [postStatic, setPostStatic] = useState<PostStatic>(initialPostStatic);
   const [postInfo, setPostInfo] = useState<{ [key: string]: PostInfo }>(
     initialPostInfo
@@ -104,6 +104,7 @@ export default function PostForm({
             onChange={handlePostStaticChange}
           />
           <PostInfoEditor
+            mode={mode}
             postInfo={postInfo[postStatic.language] || initialPostInfo}
             postContent={postContent[postStatic.language] || ''}
             onChange={handlePostInfoChange}
