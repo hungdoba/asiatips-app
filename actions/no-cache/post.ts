@@ -24,8 +24,8 @@ export async function getPostData(slug: string) {
     visible: postData.active ?? false,
   };
 
-  const info: { [key: string]: PostInfo } = {};
-  const content: { [key: string]: string } = {};
+  const info: Record<string, PostInfo> = {};
+  const content: Record<string, string> = {};
 
   postData.post_translation.forEach((translation: any) => {
     info[translation.language_code] = {

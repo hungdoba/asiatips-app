@@ -12,8 +12,8 @@ export default async function Update({ params }: Props) {
   return (
     <PostForm
       initialPostStatic={postStatic}
-      initialPostInfo={postInfo}
-      initialPostContent={postContent}
+      initialPostInfos={postInfo}
+      initialPostContents={postContent}
       mode="update"
     />
   );

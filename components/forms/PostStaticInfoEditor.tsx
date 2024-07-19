@@ -32,6 +32,7 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
   };
 
   const handleSlugChange = (slug: string) => {
+    slug = slug.toLowerCase().trim().replace(/\s+/g, '-');
     onChange({ ...postStatic, slug });
   };
 

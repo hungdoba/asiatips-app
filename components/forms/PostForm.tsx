@@ -11,23 +11,21 @@ import PostStaticInfoEditor from '@/components/forms/PostStaticInfoEditor';
 interface Props {
   mode: 'create' | 'update';
   initialPostStatic: PostStatic;
-  initialPostInfo: { [key: string]: PostInfo };
-  initialPostContent: { [key: string]: string };
+  initialPostInfos: Record<string, PostInfo>;
+  initialPostContents: Record<string, string>;
 }
 
 export default function PostForm({
   initialPostStatic,
-  initialPostInfo,
-  initialPostContent,
+  initialPostInfos,
+  initialPostContents,
   mode,
 }: Props) {
   const [postStatic, setPostStatic] = useState<PostStatic>(initialPostStatic);
-  const [postInfo, setPostInfo] = useState<{ [key: string]: PostInfo }>(
-    initialPostInfo
-  );
-  const [postContent, setPostContent] = useState<{ [key: string]: string }>(
-    initialPostContent
-  );
+  const [postInfos, setPostInfos] =
+    useState<Record<string, PostInfo>>(initialPostInfos);
+  const [postContents, setPostContents] =
+    useState<Record<string, string>>(initialPostContents);
   const [isDirty, setIsDirty] = useState(false);
 
   useEffect(() => {
@@ -43,7 +41,7 @@ export default function PostForm({
   }, [isDirty]);
 
   const handleContentChange = (value: string) => {
-    setPostContent((prev) => ({ ...prev, [postStatic.language]: value }));
+    setPostContents((prev) => ({ ...prev, [postStatic.language]: value }));
     setIsDirty(true);
   };
 
@@ -53,9 +51,11 @@ export default function PostForm({
   };
 
   const handlePostInfoChange = (newPostInfo: PostInfo) => {
-    setPostInfo((prev) => ({ ...prev, [postStatic.language]: newPostInfo }));
+    setPostInfos((prev) => ({ ...prev, [postStatic.language]: newPostInfo }));
     setIsDirty(true);
   };
+
+  // function verifyPost(postStatic: PostStatic, postInfo: PostInfo, postContent: PostCo)
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -65,12 +65,12 @@ export default function PostForm({
     formData.append('header_image', postStatic.headerImage || '');
     formData.append('active', postStatic.visible.toString());
 
-    const translations = Object.keys(postInfo).map((lang) => ({
+    const translations = Object.keys(postInfos).map((lang) => ({
       language_code: lang,
-      post_title: postInfo[lang].title,
-      post_brief: postInfo[lang].brief,
-      table_of_contents: postInfo[lang].tableOfContent,
-      post_content: postContent[lang],
+      post_title: postInfos[lang].title,
+      post_brief: postInfos[lang].brief,
+      table_of_contents: postInfos[lang].tableOfContent,
+      post_content: postContents[lang],
     }));
 
     formData.append('translations', JSON.stringify(translations));
@@ -105,16 +105,16 @@ export default function PostForm({
           />
           <PostInfoEditor
             mode={mode}
-            postInfo={postInfo[postStatic.language] || initialPostInfo}
-            postContent={postContent[postStatic.language] || ''}
+            postInfo={postInfos[postStatic.language] || initialPostInfos}
+            postContent={postContents[postStatic.language] || ''}
             onChange={handlePostInfoChange}
             onSave={handleSubmit}
           />
         </div>
         <hr className="md:hidden mb-4" />
-        <div className="w-full md:w-3/4">
+        <div className="z-10 w-full md:w-3/4">
           <MDXEditor
-            value={postContent[postStatic.language] || ''}
+            value={postContents[postStatic.language] || ''}
             onChange={handleContentChange}
           />
         </div>
