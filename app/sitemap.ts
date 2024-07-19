@@ -13,7 +13,7 @@ export default async function sitemap() {
 
   locales.forEach((locale) => {
     // gallery
-    for (let i = 1; i <= imagesCount; i++) {
+    for (let i = 0; i < imagesCount; i++) {
       const galleryUrl = `https://${process.env.DOMAIN}/${locale.locale}/gallery/${i}`;
       const sitemapGalleryUrl = {
         url: galleryUrl,
