@@ -20,10 +20,6 @@
   "postCard": {
     "readMore": "続き読む"
   },
-  "category": {
-    "tipsOverview": "日本で暮らすための小さなヒント、もっと魅力的な情報が見つかりますように。",
-    "jlptOverview": "各年のJLPT試験の問題と回答のまとめ、みんながより良く勉強できるようにします。"
-  },
   "jlpt": {
     "gotoListen": "聴解へ",
     "gotoRead": "読解へ"
@@ -36,5 +32,8 @@
   "tableOfContent": {
     "title": "目次",
     "buttonUpdate": "修正"
+  },
+  "error": {
+    "categoryNotExist": "項目が存在しません。"
   }
 }

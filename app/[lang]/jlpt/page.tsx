@@ -2,19 +2,25 @@ import Link from 'next/link';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
 import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
+import { getCacheCategories } from '@/actions/cache/category';
+import { post_category } from '@prisma/client';
 
 export default async function JLPT({ params }: { params: { lang: Locale } }) {
   const dictionary = await getDictionary(params.lang);
   const datas = await getCacheJLPTTimes();
+  const categories = await getCacheCategories();
+  const currentCategory: post_category | undefined = categories.findLast(
+    (category) => category.locale === params.lang && category.slug === 'jlpt'
+  );
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
         <div className="space-y-2 pb-8 md:pt-6 md:space-y-5">
           <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100">
-            JLPT N1
+            {currentCategory?.title}
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            {dictionary.category.jlptOverview}
+            {currentCategory?.describe}
           </p>
         </div>
         <hr />

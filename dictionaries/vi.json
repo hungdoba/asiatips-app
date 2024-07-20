@@ -20,10 +20,6 @@
   "postCard": {
     "readMore": "Đọc thêm"
   },
-  "category": {
-    "tipsOverview": "Những mẹo nhỏ giúp cuộc sống ở Nhật của bạn thú vị hơn",
-    "jlptOverview": "Tổng hợp đề thi và đáp án JLPT các năm, giúp mọi người ôn luyện tốt hơn"
-  },
   "jlpt": {
     "gotoListen": "Phần nghe",
     "gotoRead": "Phần đọc"
@@ -36,5 +32,8 @@
   "tableOfContent": {
     "title": "Mục lục",
     "buttonUpdate": "Chỉnh sửa"
+  },
+  "error": {
+    "categoryNotExist": "Không có danh mục này"
   }
 }

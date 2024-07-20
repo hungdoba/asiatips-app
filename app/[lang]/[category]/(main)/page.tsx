@@ -1,9 +1,9 @@
+import { post_category } from '@prisma/client';
 import { Locale, locales } from '@/i18n-config';
-import { getDictionary } from '@/get-dictionary';
 import PostList from '@/components/layouts/PostList';
 import { getCachePostByCategory } from '@/actions/cache/post';
-import { post_category } from '@prisma/client';
 import { getCacheCategories } from '@/actions/cache/category';
+import { getDictionary } from '@/get-dictionary';
 
 export async function generateStaticParams() {
   const categories: post_category[] = await getCacheCategories();
@@ -21,13 +21,28 @@ export default async function Category({
 }: {
   params: { category: string; lang: Locale };
 }) {
+  const categories = await getCacheCategories();
   const dictionary = await getDictionary(params.lang);
+  const currentCategory: post_category | undefined = categories.findLast(
+    (category) =>
+      category.locale === params.lang && category.slug === params.category
+  );
+
   const datas = await getCachePostByCategory(params.lang, params.category);
+
+  if (currentCategory === undefined) {
+    return (
+      <p>{`${params.category.toUpperCase()}: ${
+        dictionary.error.categoryNotExist
+      }`}</p>
+    );
+  }
+
   return (
     <PostList
       lang={params.lang}
-      title={params.category.toUpperCase()}
-      describe={dictionary.category.tipsOverview}
+      title={currentCategory.title}
+      describe={currentCategory.describe}
       datas={datas}
     />
   );

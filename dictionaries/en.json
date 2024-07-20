@@ -20,10 +20,6 @@
   "postCard": {
     "readMore": "Read More"
   },
-  "category": {
-    "tipsOverview": "Small tips for living in Japan, wish you can find more fascinating information.",
-    "jlptOverview": "Compilation of JLPT exam questions and answers from various years, helping everyone to study better."
-  },
   "jlpt": {
     "gotoListen": "Go to Listen",
     "gotoRead": "Go to Read"
@@ -36,5 +32,8 @@
   "tableOfContent": {
     "title": "Table of Content",
     "buttonUpdate": "Update"
+  },
+  "error": {
+    "categoryNotExist": "Category is not exist"
   }
 }
