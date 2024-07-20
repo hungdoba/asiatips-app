@@ -6,7 +6,7 @@ const prismaClientSingleton = (() => {
   return () => {
     if (!prisma) {
       prisma = new PrismaClient({
-        // log: ['query', 'info', 'warn', 'error'],
+        log: ['info', 'warn', 'error'],
       });
     }
     return prisma;
