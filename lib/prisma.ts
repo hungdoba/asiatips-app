@@ -1,27 +1,26 @@
 import { PrismaClient } from '@prisma/client';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient();
-};
+const prismaClientSingleton = (() => {
+  let prisma: PrismaClient | null = null;
 
-declare const globalThis: {
-  prismaGlobal: ReturnType<typeof prismaClientSingleton>;
-} & typeof global;
+  return () => {
+    if (!prisma) {
+      prisma = new PrismaClient({
+        // log: ['query', 'info', 'warn', 'error'],
+      });
+    }
+    return prisma;
+  };
+})();
 
-const prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
+declare global {
+  var prismaGlobal: PrismaClient | undefined;
+}
+
+const prisma = global.prismaGlobal ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== 'production') {
+  global.prismaGlobal = prisma;
+}
 
 export default prisma;
-
-if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
-
-// import { PrismaClient } from '@prisma/client';
-// let prisma: PrismaClient;
-// if (process.env.NODE_ENV === 'production') {
-//   prisma = new PrismaClient();
-// } else {
-//   if (!(global as any).prisma) {
-//     (global as any).prisma = new PrismaClient();
-//   }
-//   prisma = (global as any).prisma;
-// }
-// export default prisma;
