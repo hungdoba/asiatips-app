@@ -193,6 +193,9 @@ export async function getAllFullPosts(lang?: string): Promise<any> {
 export async function getPostByCategory(lang: Locale, category: string) {
   let posts = await prisma.post.findMany({
     where: { post_category: category },
+    orderBy: {
+      updated_at: 'desc',
+    },
     include: {
       post_translation: lang ? { where: { language_code: lang } } : true,
     },
