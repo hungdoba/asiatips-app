@@ -68,6 +68,8 @@ model jlpt_question {
   explanation      String?
   note             String?
   id               Int     @id @default(autoincrement())
+
+  @@unique([year, month, question_number], map: "unique")
 }
 
 model jlpt_chokai {
@@ -85,4 +87,13 @@ model jlpt_chokai {
   explain         String?
   note            String?
   id              Int     @id(map: "chokai_pkey") @default(autoincrement())
+}
+
+model post_category {
+  id       Int     @id @default(autoincrement())
+  slug     String
+  locale   String
+  title    String
+  describe String
+  active   Boolean
 }

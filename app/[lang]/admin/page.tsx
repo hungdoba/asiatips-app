@@ -4,11 +4,14 @@ import {
   RevalidateGalleryButton,
   RevalidatePostButton,
   SignInButton,
-  SignOutButton,
 } from '@/components/controls/Button';
+// import CategoryForm from '@/components/forms/CategoryForm';
+import { getCacheCategories } from '@/actions/cache/category';
 
 export default async function SignIn() {
   const session = await auth();
+  const categories = await getCacheCategories();
+
   if (!session?.user)
     return (
       <div className="mx-auto max-w-lg flex justify-center items-center">
@@ -32,7 +35,8 @@ export default async function SignIn() {
       </Link>
       <RevalidateGalleryButton />
       <RevalidatePostButton />
-      <SignOutButton />
+      {/* <hr className="mb-4" />
+      <CategoryForm initCategories={categories} /> */}
     </div>
   );
 }

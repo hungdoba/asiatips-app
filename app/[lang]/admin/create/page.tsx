@@ -1,7 +1,10 @@
 import PostForm from '@/components/forms/PostForm';
 import { PostInfo, PostStatic } from '@/types/post';
+import { getCacheCategories } from '@/actions/cache/category';
 
-const Create = () => {
+const Create = async () => {
+  const categories = await getCacheCategories();
+
   const postStatic: PostStatic = {
     language: 'vi',
     slug: '',
@@ -37,10 +40,11 @@ const Create = () => {
 
   return (
     <PostForm
+      mode="create"
+      categories={categories}
       initialPostStatic={postStatic}
       initialPostInfos={postInfos}
       initialPostContents={postContents}
-      mode="create"
     />
   );
 };

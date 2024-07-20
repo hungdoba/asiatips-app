@@ -9,6 +9,7 @@
     "bs": "npm run build && npm run start",
     "lint": "next lint",
     "test": "jest",
+    "clean": "rmdir /s /q .next",
     "postinstall": "prisma generate"
   },
   "dependencies": {

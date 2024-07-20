@@ -6,13 +6,17 @@ import Dropdown from '../controls/Dropdown';
 import { ChangeEvent, useState } from 'react';
 import { FiTrash, FiUploadCloud } from 'react-icons/fi';
 import { deleteImage, uploadImage } from '@/actions/no-cache/image';
+import { locales } from '@/i18n-config';
+import { post_category } from '@prisma/client';
 
 interface PostStaticInfoEditorProps {
+  categories: post_category[];
   postStatic: PostStatic;
   onChange: (postStatic: PostStatic) => void;
 }
 
 const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
+  categories,
   postStatic,
   onChange,
 }) => {
@@ -21,11 +25,17 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
     null
   );
 
-  const menuItems: MenuItem[] = [
-    { label: 'Vietnamese', value: 'vi' },
-    { label: 'Japanese', value: 'ja' },
-    { label: 'English', value: 'en' },
-  ];
+  const languages: MenuItem[] = locales.map((locale) => ({
+    label: locale.name,
+    value: locale.locale,
+  }));
+
+  const categoryOptions: MenuItem[] = categories
+    .filter((category) => category.locale === postStatic.language)
+    .map((category) => ({
+      label: category.title,
+      value: category.slug,
+    }));
 
   const handleLanguageSelect = (lang: string) => {
     onChange({ ...postStatic, language: lang });
@@ -112,7 +122,7 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
   return (
     <form className="mx-auto md:mr-4">
       <div className="relative w-full mb-5 group z-10">
-        <Dropdown menuItems={menuItems} onSelect={handleLanguageSelect} />
+        <Dropdown menuItems={languages} onSelect={handleLanguageSelect} />
       </div>
       <div className="relative w-full mb-5 group">
         <input
@@ -174,15 +184,14 @@ const PostStaticInfoEditor: React.FC<PostStaticInfoEditorProps> = ({
           </label>
         </div>
       </div>
-      <div className="relative w-full mb-5 group">
-        <input
-          name="floating_category"
-          className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-          placeholder=""
-          onChange={(e) => handleCategoryChange(e.target.value)}
-          value={category}
-          required={true}
-        />
+      <div className="relative w-full mb-5 group z-10">
+        <div className="z-10 py-4">
+          <Dropdown
+            menuItems={categoryOptions}
+            onSelect={handleCategoryChange}
+            initValue={category}
+          />
+        </div>
         <label
           htmlFor="floating_category"
           className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"

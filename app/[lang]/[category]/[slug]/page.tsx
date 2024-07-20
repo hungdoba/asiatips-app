@@ -2,6 +2,7 @@ import { auth } from '@/auth';
 import Image from 'next/image';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
+import { post } from '@prisma/client';
 import { Locale, locales } from '@/i18n-config';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { getDictionary } from '@/get-dictionary';
@@ -9,7 +10,6 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { getCacheAllPosts, getCachePostDetail } from '@/actions/cache/post';
 import TableOfContent from '@/components/layouts/TableOfContent';
 import TableOfContentClient from '@/components/layouts/TableOfContentClient';
-import { post } from '@prisma/client';
 
 interface Props {
   params: { category: string; slug: string; lang: Locale };

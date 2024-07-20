@@ -1,22 +1,33 @@
 'use client';
 import Link from 'next/link';
+import { useState } from 'react';
 import LocaleSwitcher from './LocaleSwitcher';
 import { FiMenu, FiX } from 'react-icons/fi';
-import { useState } from 'react';
+import { post_category } from '@prisma/client';
 
 interface Props {
   lang: string;
+  categories: post_category[];
   dictionary: any;
   session: any;
 }
 
-export default function LinkSwitcher({ lang, dictionary, session }: Props) {
+export default function LinkSwitcher({
+  lang,
+  categories,
+  dictionary,
+  session,
+}: Props) {
   const [hiddenMenu, setHiddenMenu] = useState(true);
-  const navigationLinks = [
-    { href: `/${lang}/tips`, label: dictionary.navbar.tips },
-    { href: `/${lang}/jlpt`, label: dictionary.navbar.jlpt },
-    { href: `/${lang}/gallery`, label: dictionary.navbar.gallery },
-  ];
+  const langCategories = categories.filter(
+    (category) => category.locale === lang
+  );
+
+  const navigationLinks = langCategories.map((category) => ({
+    href: `/${lang}/${category.slug}`,
+    label: category.title,
+  }));
+
   return (
     <>
       <div

@@ -12,10 +12,12 @@ interface Props {
 
 import React, { Suspense } from 'react';
 import LinkSwitcher from '../controls/LinkSwitcher';
+import { getCacheCategories } from '@/actions/cache/category';
 
 export default async function Navbar({ lang }: Props) {
   const session = await auth();
   const dictionary = await getDictionary(lang);
+  const categories = await getCacheCategories();
 
   return (
     <nav className="bg-gray-200 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
@@ -45,13 +47,12 @@ export default async function Navbar({ lang }: Props) {
           <LocaleSwitcher />
         </div>
         <div>
-          <Suspense fallback={<p>...</p>}>
-            <LinkSwitcher
-              lang={lang}
-              dictionary={dictionary}
-              session={session}
-            />
-          </Suspense>
+          <LinkSwitcher
+            lang={lang}
+            categories={categories}
+            dictionary={dictionary}
+            session={session}
+          />
         </div>
       </div>
     </nav>

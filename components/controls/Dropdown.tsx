@@ -4,12 +4,15 @@ import { MenuItem } from '@/types/common';
 interface Props {
   menuItems: MenuItem[];
   onSelect: (value: string) => void;
+  initValue?: string;
 }
 
-export default function Dropdown({ menuItems, onSelect }: Props) {
+export default function Dropdown({ menuItems, onSelect, initValue }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [buttonTextContent, setButtonTextContent] = useState(
-    menuItems[0].label
+    initValue
+      ? menuItems.find((menu) => menu.value === initValue)?.label
+      : menuItems[0].label
   );
 
   const toggleDropdown = () => {
@@ -32,7 +35,7 @@ export default function Dropdown({ menuItems, onSelect }: Props) {
         onClick={toggleDropdown}
         data-dropdown-toggle="dropdown"
       >
-        {buttonTextContent}{' '}
+        {buttonTextContent}
         <svg
           className={`w-2.5 h-2.5 ms-3 ${isOpen ? 'transform rotate-180' : ''}`}
           aria-hidden="true"
