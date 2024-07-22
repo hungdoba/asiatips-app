@@ -39,25 +39,25 @@ export default async function JLPTDetail({
     params.month
   );
 
-  function getMondai(mondaiNumber: number) {
-    const mondai = mondais.filter(
-      (value) => value.mondai_number === mondaiNumber
-    );
-    const question = questions.filter(
-      (value) => value.mondai_number === mondaiNumber
-    );
-    return { mondais: mondai, questions: question };
-  }
+  // function getMondai(mondaiNumber: number) {
+  //   const mondai = mondais.filter(
+  //     (value) => value.mondai_number === mondaiNumber
+  //   );
+  //   const question = questions.filter(
+  //     (value) => value.mondai_number === mondaiNumber
+  //   );
+  //   return { mondais: mondai, questions: question };
+  // }
 
-  const renderMondaiComponents = () =>
-    [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
-      <Mondai
-        key={index}
-        session={session}
-        data={getMondai(mondaiNumber)}
-        mondai_number={mondaiNumber}
-      />
-    ));
+  // const renderMondaiComponents = () =>
+  //   [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
+  //     <Mondai
+  //       key={index}
+  //       session={session}
+  //       data={getMondai(mondaiNumber)}
+  //       mondai_number={mondaiNumber}
+  //     />
+  //   ));
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
@@ -76,8 +76,8 @@ export default async function JLPTDetail({
         <hr />
       </div>
       <div className="underline-offset-4">
-        {renderMondaiComponents()}
-        <Mondai7 session={session} data={getMondai(7)} />
+        {/* {renderMondaiComponents()} */}
+        {/* <Mondai7 session={session} data={getMondai(7)} />
         <Mondai8
           session={session}
           data1={getMondai(81)}
@@ -95,7 +95,7 @@ export default async function JLPTDetail({
         <Mondai10 session={session} data={getMondai(10)} />
         <Mondai11 session={session} data={getMondai(11)} />
         <Mondai12 session={session} data={getMondai(12)} />
-        <Mondai13 session={session} data={getMondai(13)} />
+        <Mondai13 session={session} data={getMondai(13)} /> */}
       </div>
       <div className="mx-4 md:mx-8 space-y-2 pb-6 pt-0 md:space-y-5">
         <hr className="pb-4" />
