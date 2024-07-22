@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { updateQuestionExplain } from '@/actions/no-cache/_jlpt';
+import { updateQuestionExplain } from '@/actions/no-cache/jlpt';
 
 interface Props {
   question_id?: number;

@@ -1,16 +1,13 @@
-import { getCacheJLPTReadMondaiFullDetail } from '@/actions/cache/jlpt';
 import QAE from './QAE';
 
 interface Props {
   session: any;
-  year: string;
-  month: string;
+  data: any;
 }
 
-export default async function Mondai7({ session, year, month }: Props) {
-  const datas = await getCacheJLPTReadMondaiFullDetail(year, month, 7);
-  const from_number = datas.questions[0].question_number;
-  const to_number = datas.questions[datas.questions.length - 1].question_number;
+export default async function Mondai7({ session, data }: Props) {
+  const from_number = data.questions[0].question_number;
+  const to_number = data.questions[data.questions.length - 1].question_number;
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
@@ -19,11 +16,11 @@ export default async function Mondai7({ session, year, month }: Props) {
           <p
             className="mb-4"
             dangerouslySetInnerHTML={{
-              __html: datas.mondais[0].mondai_content,
+              __html: data.mondais[0].mondai_content,
             }}
           />
 
-          {datas.questions.map((question: any, id: number) => (
+          {data.questions.map((question: any, id: number) => (
             <QAE key={id} question={question} session={session} />
           ))}
         </div>

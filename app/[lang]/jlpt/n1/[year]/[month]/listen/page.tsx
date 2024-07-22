@@ -6,7 +6,7 @@ import Mondai5 from '@/components/jlpt/listen/Mondai5';
 import {
   getCacheJLPTListenFullDetail,
   getCacheJLPTTimes,
-} from '@/actions/cache/_jlpt';
+} from '@/actions/cache/jlpt';
 
 export async function generateStaticParams() {
   const jlptTimes: any = await getCacheJLPTTimes();

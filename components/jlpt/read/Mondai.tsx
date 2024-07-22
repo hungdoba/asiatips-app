@@ -1,25 +1,12 @@
-import { getCacheJLPTReadMondaiFullDetail } from '@/actions/cache/jlpt';
 import QAE from './QAE';
 
 interface Props {
   session: any;
-  year: string;
-  month: string;
   mondai_number: number;
+  data: any;
 }
 
-export default async function Mondai({
-  session,
-  year,
-  month,
-  mondai_number,
-}: Props) {
-  const datas = await getCacheJLPTReadMondaiFullDetail(
-    year,
-    month,
-    mondai_number
-  );
-
+export default async function Mondai({ session, mondai_number, data }: Props) {
   const getHeaderText = (mondai: number): string => {
     switch (mondai) {
       case 1:
@@ -44,7 +31,7 @@ export default async function Mondai({
       <div className="mx-4 md:mx-8">
         <div className="flex flex-col mb-4 md:mb-8 md:mt-8">
           <h2 className="mb-4">{getHeaderText(mondai_number)}</h2>
-          {datas.questions.map((data: any) => {
+          {data.questions.map((data: any) => {
             return <QAE key={data.id} question={data} session={session} />;
           })}
         </div>
