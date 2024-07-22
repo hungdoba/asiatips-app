@@ -1,11 +1,6 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import {
-  getCacheJLPTListenFullDetail,
-  getCacheJLPTReadFullDetail,
-} from '../cache/jlpt';
-import { jlpt_mondai, jlpt_question } from '@prisma/client';
 
 // Has cache function
 export async function getJLPTTimes() {
@@ -19,7 +14,7 @@ export async function getJLPTTimes() {
 
   const data = Array.from(
     new Set(times.map((time) => `${time.year}-${time.month}`))
-  ).map((uniqueTime: any) => {
+  ).map((uniqueTime) => {
     const [year, month] = uniqueTime.split('-').map(Number);
     return { year, month };
   });
@@ -36,37 +31,6 @@ export async function getJLPTListenFullDetail(year: string, month: string) {
   });
   return datas;
 }
-
-// 20240722 ------------------------------------------------------------------------------
-export async function getJLPTReadMondaiDetail(
-  year: string,
-  month: string,
-  mondai: number
-) {
-  let { mondais, questions } = await getCacheJLPTReadFullDetail(year, month);
-
-  mondais = mondais.filter(
-    (data: jlpt_mondai) => data.mondai_number === mondai
-  );
-  questions = questions.filter(
-    (data: jlpt_question) => data.mondai_number === mondai
-  );
-
-  return { mondais, questions };
-}
-
-export async function getJLPTListenMondaiDetail(
-  year: string,
-  month: string,
-  mondai: number
-) {
-  const fullDatas = await getCacheJLPTListenFullDetail(year, month);
-  const mondais = fullDatas.filter((data: any) => {
-    data.mondai = mondai;
-  });
-  return mondais;
-}
-// 20240722 ------------------------------------------------------------------------------
 
 // Has cache function
 export async function getJLPTReadFullDetail(year: string, month: string) {

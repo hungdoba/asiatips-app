@@ -10,10 +10,8 @@ import Mondai10 from '@/components/jlpt/read/Mondai10';
 import Mondai11 from '@/components/jlpt/read/Mondai11';
 import Mondai12 from '@/components/jlpt/read/Mondai12';
 import Mondai13 from '@/components/jlpt/read/Mondai13';
-import {
-  getCacheJLPTReadFullDetail,
-  getCacheJLPTTimes,
-} from '@/actions/cache/jlpt';
+import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   const jlptTimes: any = await getCacheJLPTTimes();
@@ -34,30 +32,6 @@ export default async function JLPTDetail({
 }) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
-  const { mondais, questions } = await getCacheJLPTReadFullDetail(
-    params.year,
-    params.month
-  );
-
-  function getMondai(mondaiNumber: number) {
-    const mondai = mondais.filter(
-      (value) => value.mondai_number === mondaiNumber
-    );
-    const question = questions.filter(
-      (value) => value.mondai_number === mondaiNumber
-    );
-    return { mondais: mondai, questions: question };
-  }
-
-  const renderMondaiComponents = () =>
-    [1, 2, 3, 4, 5, 6].map((mondaiNumber, index) => (
-      <Mondai
-        key={index}
-        session={session}
-        data={getMondai(mondaiNumber)}
-        mondai_number={mondaiNumber}
-      />
-    ));
 
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
@@ -76,26 +50,75 @@ export default async function JLPTDetail({
         <hr />
       </div>
       <div className="underline-offset-4">
-        {renderMondaiComponents()}
-        <Mondai7 session={session} data={getMondai(7)} />
-        <Mondai8
-          session={session}
-          data1={getMondai(81)}
-          data2={getMondai(82)}
-          data3={getMondai(83)}
-          data4={getMondai(84)}
-        />
-        <Mondai9
-          session={session}
-          data1={getMondai(91)}
-          data2={getMondai(92)}
-          data3={getMondai(93)}
-          data4={getMondai(94)}
-        />
-        <Mondai10 session={session} data={getMondai(10)} />
-        <Mondai11 session={session} data={getMondai(11)} />
-        <Mondai12 session={session} data={getMondai(12)} />
-        <Mondai13 session={session} data={getMondai(13)} />
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={1}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={2}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={3}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={4}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={5}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai
+            session={session}
+            year={params.year}
+            month={params.month}
+            mondai_number={6}
+          />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai7 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai8 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai9 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai10 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai11 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai12 session={session} year={params.year} month={params.month} />
+        </Suspense>
+        <Suspense fallback={<p>...</p>}>
+          <Mondai13 session={session} year={params.year} month={params.month} />
+        </Suspense>
       </div>
       <div className="mx-4 md:mx-8 space-y-2 pb-6 pt-0 md:space-y-5">
         <hr className="pb-4" />

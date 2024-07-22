@@ -2,7 +2,7 @@ import { locales } from '@/i18n-config';
 import { post as PostType } from '@prisma/client';
 import { getCacheAllPosts } from '@/actions/cache/post';
 import { getCacheImagesCount } from '@/actions/cache/image';
-import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
+import { getCacheJLPTTimes } from '@/actions/cache/_jlpt';
 
 export default async function sitemap() {
   const imagesCount = await getCacheImagesCount();

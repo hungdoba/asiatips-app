@@ -1,11 +1,14 @@
+import { getCacheJLPTReadMondaiFullDetail } from '@/actions/cache/jlpt';
 import QAE from './QAE';
 
 interface Props {
   session: any;
-  data: any;
+  year: string;
+  month: string;
 }
 
-export default async function Mondai10({ session, data }: Props) {
+export default async function Mondai10({ session, year, month }: Props) {
+  const data = await getCacheJLPTReadMondaiFullDetail(year, month, 10);
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">

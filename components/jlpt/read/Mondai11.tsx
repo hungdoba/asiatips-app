@@ -1,11 +1,18 @@
+import { getCacheJLPTReadMondaiFullDetail } from '@/actions/cache/jlpt';
 import QAE from './QAE';
 
 interface Props {
   session: any;
-  data: any;
+  year: string;
+  month: string;
 }
 
-export default async function Mondai11({ session, data }: Props) {
+export default async function Mondai11({ session, year, month }: Props) {
+  const { mondais, questions } = await getCacheJLPTReadMondaiFullDetail(
+    year,
+    month,
+    11
+  );
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl">
       <div className="mx-4 md:mx-8">
@@ -15,18 +22,18 @@ export default async function Mondai11({ session, data }: Props) {
           <p
             className="mb-4"
             dangerouslySetInnerHTML={{
-              __html: data.mondais[0].mondai_content,
+              __html: mondais[0].mondai_content,
             }}
           />
           <h3 className="mb-4">(B)</h3>
           <p
             className="mb-4"
             dangerouslySetInnerHTML={{
-              __html: data.mondais[0].note,
+              __html: mondais[0].note ?? '',
             }}
           />
 
-          {data.questions.map((question: any, id: number) => (
+          {questions.map((question: any, id: number) => (
             <QAE key={id} question={question} session={session} />
           ))}
         </div>

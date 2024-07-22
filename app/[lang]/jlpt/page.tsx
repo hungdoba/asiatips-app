@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Locale } from '@/i18n-config';
 import { getDictionary } from '@/get-dictionary';
-import { getCacheJLPTTimes } from '@/actions/cache/jlpt';
+import { getCacheJLPTTimes } from '@/actions/cache/_jlpt';
 import { getCacheCategories } from '@/actions/cache/category';
 import { post_category } from '@prisma/client';
 

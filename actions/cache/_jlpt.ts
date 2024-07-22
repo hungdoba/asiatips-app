@@ -1,11 +1,9 @@
 import { unstable_cache } from 'next/cache';
 import {
   getJLPTListenFullDetail,
-  getJLPTListenMondaiDetail,
   getJLPTReadFullDetail,
-  getJLPTReadMondaiDetail,
   getJLPTTimes,
-} from '../no-cache/jlpt';
+} from '../no-cache/_jlpt';
 
 // For jlpt
 export const getCacheJLPTTimes = unstable_cache(
@@ -25,19 +23,5 @@ export const getCacheJLPTListenFullDetail = unstable_cache(
 export const getCacheJLPTReadFullDetail = unstable_cache(
   async (year: string, month: string) => getJLPTReadFullDetail(year, month),
   ['cache-jlpt-read'],
-  { tags: ['cache-jlpt'] }
-);
-
-// For jlpt read each mondai
-export const getCacheJLPTReadMondaiFullDetail = unstable_cache(
-  async (year: string, month: string, mondai: number) => getJLPTReadMondaiDetail(year, month, mondai),
-  ['cache-jlpt-mondai-read'],
-  { tags: ['cache-jlpt'] }
-);
-
-// For jlpt listen each mondai
-export const getCacheJLPTListenMondaiFullDetail = unstable_cache(
-  async (year: string, month: string, mondai: number) => getJLPTListenMondaiDetail(year, month, mondai),
-  ['cache-jlpt-mondai-read'],
   { tags: ['cache-jlpt'] }
 );
