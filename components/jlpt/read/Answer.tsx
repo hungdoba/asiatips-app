@@ -12,7 +12,6 @@ interface Props {
   showExplain: () => void;
 }
 
-// Utility function to get the option text safely
 const getOptionText = (
   question: jlpt_question,
   optionNumber: number
@@ -48,7 +47,7 @@ export default function Answer({
   selectedOption,
   showExplain,
 }: Props) {
-  const [columns, setColumns] = useState(2);
+  const [cols, setCols] = useState<string | undefined>();
 
   useEffect(() => {
     const maxTextLength = getMaxTextLength(question);
@@ -68,7 +67,7 @@ export default function Answer({
           cols = 1;
         }
       }
-      setColumns(cols);
+      setCols('grid-cols-' + cols);
     };
 
     handleResize();
@@ -80,7 +79,7 @@ export default function Answer({
   }, [question]);
 
   return (
-    <div className={`mb-4 ml-4 grid grid-flow-row grid-cols-${columns}`}>
+    <div className={`mb-4 ml-4 grid ${cols ?? 'grid-cols-2 md:grid-cols-4'}`}>
       {[1, 2, 3, 4].map((optionNumber) => (
         <AnswerOption
           key={optionNumber}
