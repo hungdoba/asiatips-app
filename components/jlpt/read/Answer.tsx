@@ -48,35 +48,23 @@ export default function Answer({
   showExplain,
 }: Props) {
   const [cols, setCols] = useState<string | undefined>();
+  const maxTextLength = getMaxTextLength(question);
 
   useEffect(() => {
-    const maxTextLength = getMaxTextLength(question);
-
     const handleResize = () => {
-      const screenWidth = window.innerWidth;
-
-      let cols;
-      if (screenWidth <= 768) {
-        cols = maxTextLength > 6 ? 1 : 2;
+      if (maxTextLength < 6) {
+        setCols('grid-cols-2 md:grid-cols-4');
+      } else if (maxTextLength < 10) {
+        setCols('grid-cols-1 md:grid-cols-4');
+      } else if (maxTextLength < 25) {
+        setCols('grid-cols-1 md:grid-cols-2');
       } else {
-        if (maxTextLength < 10) {
-          cols = 4;
-        } else if (maxTextLength < 25) {
-          cols = 2;
-        } else {
-          cols = 1;
-        }
+        setCols('grid-cols-1');
       }
-      setCols('grid-cols-' + cols);
     };
 
     handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [question]);
+  }, [maxTextLength]);
 
   return (
     <div className={`mb-4 ml-4 grid ${cols ?? 'grid-cols-2 md:grid-cols-4'}`}>

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "bs": "npm run build && npm run start",
+    "cbs": "rmdir /s /q .next && next build && next start",
     "lint": "next lint",
     "test": "jest",
     "clean": "rmdir /s /q .next",
