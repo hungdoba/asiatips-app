@@ -55,7 +55,7 @@ export default function MDXEditor({ value, onChange }: Props) {
   }, []);
 
   return (
-    <div className="w-full prose dark:prose-invert prose-headings:text-black prose-a:no-underline prose-a:text-cyan-500 prose-p:text-black prose-li:text-black">
+    <div className="w-full prose dark:prose-invert prose-headings:text-black prose-a:no-underline prose-a:text-cyan-500 prose-p:text-black prose-li:text-black prose-strong:text-black">
       <SimpleMdeReact
         className="editor-text-black editor-toolbar-gray"
         value={value}

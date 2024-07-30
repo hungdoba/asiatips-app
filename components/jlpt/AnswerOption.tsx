@@ -11,6 +11,7 @@ interface Props {
   selected: boolean;
   showExplain: () => void;
   select: () => void;
+  className?: string;
 }
 
 export default function AnswerOption({
@@ -21,6 +22,7 @@ export default function AnswerOption({
   selected,
   showExplain,
   select,
+  className,
 }: Props) {
   const [showAnswer, setShowAnswer] = useState(false);
 
@@ -38,7 +40,7 @@ export default function AnswerOption({
     : 'border-transparent'; // Not selected and not showing hint or incorrect answer
 
   return (
-    <div className="flex flex-row mr-4 items-center">
+    <div className={`flex flex-row mr-4 items-center ${className ?? ''}`}>
       <div
         onClick={select}
         className={`flex flex-row hover:cursor-pointer hover:border-blue-300 border rounded-md px-2 mr-2 ${borderColorClass}`}
