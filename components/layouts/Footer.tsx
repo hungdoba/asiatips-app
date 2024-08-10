@@ -20,7 +20,7 @@ export default async function Footer({ lang }: Props) {
   return (
     <div className="bg-gray-200 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
       <div className="p-4 mx-auto max-w-screen-xl lg:pt-16 lg:pb-8 lg:px-6">
-        <Newsletter dictionary={dictionary} />
+        {/* <Newsletter dictionary={dictionary} /> */}
       </div>
       <div className="flex flex-col items-center">
         <div className="mb-3 flex space-x-4">
