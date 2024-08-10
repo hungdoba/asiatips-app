@@ -5,13 +5,6 @@ import { ClientMessage } from './action';
 import { useActions, useUIState } from 'ai/rsc';
 import { nanoid } from 'nanoid';
 
-interface Message {
-  id: string;
-  spinner: React.ReactNode;
-  display: React.ReactNode;
-  attachments: React.ReactNode;
-}
-
 export default function Home() {
   const [input, setInput] = useState<string>('');
   const [conversation, setConversation] = useUIState();
