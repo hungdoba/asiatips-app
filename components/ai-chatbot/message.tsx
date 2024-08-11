@@ -86,28 +86,6 @@ export function BotMessage({
   );
 }
 
-export function BotCard({
-  children,
-  showAvatar = true,
-}: {
-  children: React.ReactNode;
-  showAvatar?: boolean;
-}) {
-  return (
-    <div className="group relative flex items-start md:-ml-12">
-      <div
-        className={cn(
-          'bg-background flex size-[25px] shrink-0 select-none items-center justify-center rounded-lg border shadow-sm',
-          !showAvatar && 'invisible'
-        )}
-      >
-        <img className="size-6" src="/images/gemini.png" alt="gemini logo" />
-      </div>
-      <div className="ml-4 flex-1 pl-2">{children}</div>
-    </div>
-  );
-}
-
 export function SystemMessage({ children }: { children: React.ReactNode }) {
   return (
     <div
