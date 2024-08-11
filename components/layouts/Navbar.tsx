@@ -29,6 +29,7 @@ export default async function Navbar({ lang }: Props) {
           >
             <Image
               src="/icon.png"
+              priority
               width={120}
               height={47}
               className="h-10 w-auto"

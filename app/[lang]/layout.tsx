@@ -2,7 +2,6 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import Navbar from '@/components/layouts/Navbar';
 import Footer from '@/components/layouts/Footer';
@@ -52,7 +51,6 @@ export default async function RootLayout({
           <footer>
             <Footer lang={params.lang} />
           </footer>
-          <SpeedInsights />
         </Providers>
       </body>
     </html>

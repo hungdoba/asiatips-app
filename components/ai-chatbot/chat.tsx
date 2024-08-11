@@ -8,6 +8,7 @@ import { PromptForm } from '@/components/ai-chatbot/prompt-form';
 export function Chat() {
   const [input, setInput] = useState('');
   const [messages] = useUIState();
+
   return (
     <div className="container mx-auto w-full mt-4 md:max-w-5xl h-full flex flex-col">
       <div className="flex-1 w-full mb-24 overflow-x-hidden overflow-y-auto px-4">

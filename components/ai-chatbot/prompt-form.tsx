@@ -54,7 +54,6 @@ export function PromptForm({
           setInput(event.target.value);
         }}
         value={input}
-        defaultValue={''}
       />
       <button
         type="submit"

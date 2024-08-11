@@ -44,6 +44,9 @@ async function submitUserMessage(content: string) {
       const result = await streamText({
         model: google('models/gemini-1.5-flash'),
         temperature: 0,
+        system: `\
+        You name is AsiAI and you are Asiatips's AI assistant. You are a frindly assiatant the helps user with answer the question about life in japan, tips to live in japan and help user learn japanese. 
+      `,
         messages: [...history],
       });
 
