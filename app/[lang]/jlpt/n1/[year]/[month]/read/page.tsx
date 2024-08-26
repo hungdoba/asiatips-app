@@ -14,6 +14,7 @@ import {
   getCacheJLPTReadFullDetail,
   getCacheJLPTTimes,
 } from '@/actions/cache/jlpt';
+import { getJLPTReadFullDetail } from '@/actions/no-cache/jlpt';
 
 export async function generateStaticParams() {
   const jlptTimes: any = await getCacheJLPTTimes();
@@ -34,7 +35,8 @@ export default async function JLPTDetail({
 }) {
   const session = await auth();
   const dictionary = await getDictionary(params.lang);
-  const { mondais, questions } = await getCacheJLPTReadFullDetail(
+  // const { mondais, questions } = await getCacheJLPTReadFullDetail(
+  const { mondais, questions } = await getJLPTReadFullDetail(
     params.year,
     params.month
   );

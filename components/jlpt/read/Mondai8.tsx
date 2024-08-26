@@ -1,3 +1,4 @@
+import MondaiContent from './MondaiContent';
 import QAE from './QAE';
 
 interface Props {
@@ -23,52 +24,28 @@ export default async function Mondai8({
             問題８　次の（１）～（４）の文章を読んで、後の問いに対する答えとして最もよいものを、１・２・３・４から一つ選びなさい。
           </h2>
           {/* Q1 */}
-          <h3 className="mb-4">(1)</h3>
           <div className="flex flex-col">
-            <h2
-              className="mb-4"
-              dangerouslySetInnerHTML={{
-                __html: data1.mondais[0].mondai_content,
-              }}
-            />
+            <MondaiContent session={session} mondai={data1.mondais[0]} />
             <QAE question={data1.questions[0]} session={session} />
           </div>
 
           {/* Q2 */}
-          <h3 className="mb-4">(2)</h3>
           <div className="flex flex-col">
-            <h2
-              className="mb-4"
-              dangerouslySetInnerHTML={{
-                __html: data2.mondais[0].mondai_content,
-              }}
-            />
+            <MondaiContent session={session} mondai={data2.mondais[0]} />
             <QAE question={data2.questions[0]} session={session} />
           </div>
 
           {/* Q3 */}
-          <h3 className="mb-4">(3)</h3>
           <div className="flex flex-col">
-            <h2
-              className="mb-4"
-              dangerouslySetInnerHTML={{
-                __html: data3.mondais[0].mondai_content,
-              }}
-            />
+            <MondaiContent session={session} mondai={data3.mondais[0]} />
             <QAE question={data3.questions[0]} session={session} />
           </div>
 
           {/* Q4 */}
           {data4 && (
             <div>
-              <h3 className="mb-4">(4)</h3>
               <div className="flex flex-col">
-                <h2
-                  className="mb-4"
-                  dangerouslySetInnerHTML={{
-                    __html: data4.mondais[0].mondai_content,
-                  }}
-                />
+                <MondaiContent session={session} mondai={data4.mondais[0]} />
                 <QAE question={data4.questions[0]} session={session} />
               </div>
             </div>

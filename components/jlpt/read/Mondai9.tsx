@@ -1,4 +1,5 @@
 import QAE from './QAE';
+import MondaiContent from './MondaiContent';
 
 interface Props {
   session: any;
@@ -25,14 +26,8 @@ export default async function Mondai9({
 
           {/* Q1 */}
           <div>
-            <h3 className="mb-4">(1)</h3>
             <div className="flex flex-col">
-              <h2
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: data1.mondais[0].mondai_content,
-                }}
-              />
+              <MondaiContent session={session} mondai={data1.mondais[0]} />
               {data1.questions.map((question: any, id: number) => (
                 <QAE key={id} question={question} session={session} />
               ))}
@@ -41,14 +36,8 @@ export default async function Mondai9({
 
           {/* Q2 */}
           <div>
-            <h3 className="mb-4">(2)</h3>
             <div className="flex flex-col">
-              <h2
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: data2.mondais[0].mondai_content,
-                }}
-              />
+              <MondaiContent session={session} mondai={data2.mondais[0]} />
               {data2.questions.map((question: any, id: number) => (
                 <QAE key={id} question={question} session={session} />
               ))}
@@ -57,14 +46,8 @@ export default async function Mondai9({
 
           {/* Q3 */}
           <div>
-            <h3 className="mb-4">(3)</h3>
             <div className="flex flex-col">
-              <h2
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: data3.mondais[0].mondai_content,
-                }}
-              />
+              <MondaiContent session={session} mondai={data3.mondais[0]} />
               {data3.questions.map((question: any, id: number) => (
                 <QAE key={id} question={question} session={session} />
               ))}
@@ -74,14 +57,8 @@ export default async function Mondai9({
           {/* Q4 */}
           {data4.mondais.length > 0 && (
             <div>
-              <h3 className="mb-4">(4)</h3>
               <div className="flex flex-col">
-                <h2
-                  className="mb-4"
-                  dangerouslySetInnerHTML={{
-                    __html: data4.mondais[0].mondai_content,
-                  }}
-                />
+                <MondaiContent session={session} mondai={data4.mondais[0]} />
                 {data4.questions.map((question: any, id: number) => (
                   <QAE key={id} question={question} session={session} />
                 ))}
