@@ -3,6 +3,7 @@ import { updateMondaiContent, updateMondaiNote } from '@/actions/no-cache/jlpt';
 import { jlpt_mondai } from '@prisma/client';
 import { useState } from 'react';
 import { FaRegLightbulb } from 'react-icons/fa';
+import EditableText from '../EditableText';
 
 interface Props {
   session: any;
@@ -10,26 +11,25 @@ interface Props {
 }
 
 export default function MondaiContent({ session, mondai }: Props) {
-  const [editMode, setEditMode] = useState(false);
-  const [content, setContent] = useState(mondai.mondai_content);
-  const [transalte, setTranslate] = useState(mondai.note ?? '');
-  const [contentUpdated, setContentUpdated] = useState<true | false | null>(
-    null
-  );
+  const [mondaiContent, setMondaiContent] = useState(mondai.mondai_content);
+  const [mondaiTransalte, setMondaiTranslate] = useState(mondai.note ?? '');
+
+  const [contentUpdated, setContentUpdated] = useState<boolean | null>(null);
   const [noteUpdated, setNoteUpdated] = useState<true | false | null>(null);
+
   const [showHint, setShowHint] = useState(false);
 
   const handleSubmitChangeContent = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
+    setContentUpdated(null);
     const formData = new FormData();
     formData.append('id', String(mondai.id));
-    formData.append('mondai_content', content);
+    formData.append('mondai_content', mondaiContent);
 
     const result = await updateMondaiContent(formData);
     setContentUpdated(result);
-    setEditMode(!result);
   };
 
   const handleSubmitChangeNote = async (
@@ -39,7 +39,8 @@ export default function MondaiContent({ session, mondai }: Props) {
     setNoteUpdated(null);
     const formData = new FormData();
     formData.append('id', String(mondai.id));
-    formData.append('note', transalte);
+    formData.append('note', mondaiTransalte);
+
     const result = await updateMondaiNote(formData);
     setNoteUpdated(result);
   };
@@ -57,81 +58,27 @@ export default function MondaiContent({ session, mondai }: Props) {
           }`}
         />
       </div>
-      <form onSubmit={handleSubmitChangeContent}>
-        {session && editMode ? (
-          <textarea
-            className="w-full min-h-72 p-4"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-          />
-        ) : (
-          <h2
-            className="my-4 whitespace-pre-wrap"
-            dangerouslySetInnerHTML={{
-              __html: content,
-            }}
-          />
-        )}
-        <div className="flex flex-row items-center">
-          {session && (
-            <button
-              type="button"
-              onClick={() => setEditMode(!editMode)}
-              className="mb-4 mr-4 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-            >
-              Edit
-            </button>
-          )}
-          {editMode && (
-            <button
-              type="submit"
-              className="mr-4 mb-4 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-            >
-              Save
-            </button>
-          )}
-          {contentUpdated != null &&
-            (contentUpdated ? (
-              <p className="text-green-500">Success</p>
-            ) : (
-              <p className="text-red-500">Fail</p>
-            ))}
-        </div>
-      </form>
 
+      {/* Mondai's question content */}
+      <EditableText
+        session={session}
+        content={mondaiContent}
+        setContent={(newContent) => setMondaiContent(newContent)}
+        handleSubmitChange={handleSubmitChangeContent}
+        updated={contentUpdated}
+      />
+
+      {/* Mondon's question translate (note) */}
       {showHint && (
-        <form onSubmit={handleSubmitChangeNote}>
-          {session ? (
-            <>
-              <textarea
-                className="w-full min-h-72 p-4"
-                value={transalte}
-                onChange={(e) => setTranslate(e.target.value)}
-              />
-              <div className="flex flex-row items-center">
-                <button
-                  type="submit"
-                  className="mb-4 mr-4 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
-                >
-                  Save
-                </button>
-                {noteUpdated != null &&
-                  (noteUpdated ? (
-                    <p className="text-green-500">Success</p>
-                  ) : (
-                    <p className="text-red-500">Fail</p>
-                  ))}
-              </div>
-            </>
-          ) : (
-            <p
-              className="rounded border p-4 my-4 whitespace-pre-wrap"
-              dangerouslySetInnerHTML={{
-                __html: transalte,
-              }}
-            />
-          )}
-        </form>
+        <div className="rounded border text-gray-400 border-gray-200 dark:border-gray-600 p-4 my-4">
+          <EditableText
+            session={session}
+            content={mondaiTransalte}
+            setContent={(newContent) => setMondaiTranslate(newContent)}
+            handleSubmitChange={handleSubmitChangeNote}
+            updated={noteUpdated}
+          />
+        </div>
       )}
     </div>
   );
