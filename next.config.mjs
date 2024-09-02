@@ -12,11 +12,6 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '**',
       },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        pathname: '**',
-      },
     ],
   },
   webpack: (config, { isServer }) => {

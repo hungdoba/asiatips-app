@@ -1,3 +1,4 @@
+import MondaiContent from './MondaiContent';
 import QAE from './QAE';
 
 interface Props {
@@ -11,13 +12,7 @@ export default async function Mondai10({ session, data }: Props) {
       <div className="mx-4 md:mx-8">
         <div className="flex flex-col mb-4 md:mb-8 md:mt-8">
           <h2 className="mb-4">{`問題１０　次の（１）～（３）の文章を読んで、後の問いに対する答えとして最もよいものを、１・２・３・４から一つ選びなさい。`}</h2>
-          <p
-            className="mb-4"
-            dangerouslySetInnerHTML={{
-              __html: data.mondais[0].mondai_content,
-            }}
-          />
-
+          <MondaiContent session={session} mondai={data.mondais[0]} />
           {data.questions.map((question: any, id: number) => (
             <QAE key={id} question={question} session={session} />
           ))}

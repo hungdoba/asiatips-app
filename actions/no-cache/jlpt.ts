@@ -73,3 +73,45 @@ export async function updateQuestionExplain(formData: FormData): Promise<any> {
     return false;
   }
 }
+
+// For admin update jlpt mondai content
+export async function updateMondaiContent(formData: FormData): Promise<any> {
+  const id = formData.get('id') as string;
+  const mondai_content = formData.get('mondai_content') as string;
+
+  try {
+    await prisma.jlpt_mondai.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        mondai_content: mondai_content,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.error('Error updating question explanation:', error);
+    return false;
+  }
+}
+
+// For admin update jlpt mondai note
+export async function updateMondaiNote(formData: FormData): Promise<any> {
+  const id = formData.get('id') as string;
+  const note = formData.get('note') as string;
+
+  try {
+    await prisma.jlpt_mondai.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        note: note,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.error('Error updating question explanation:', error);
+    return false;
+  }
+}

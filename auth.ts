@@ -10,6 +10,8 @@ const config = {
   ],
   callbacks: {
     async signIn({ user }) {
+      console.log(user);
+
       if (user.email === 'hungdoba.hdb@gmail.com') {
         return true;
       }
