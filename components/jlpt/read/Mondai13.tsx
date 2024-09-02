@@ -12,7 +12,7 @@ export default async function Mondai13({ session, data }: Props) {
         <div className="flex flex-col mb-4 md:mb-8 md:mt-8">
           <h2 className="mb-4">{`問題１３　次の（１）～（３）の文章を読んで、後の問いに対する答えとして最もよいものを、１・２・３・４から一つ選びなさい。`}</h2>
           <p
-            className="mb-4"
+            className="mb-4 whitespace-pre-wrap"
             dangerouslySetInnerHTML={{
               __html: data.mondais[0].mondai_content,
             }}
