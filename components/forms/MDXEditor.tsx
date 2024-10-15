@@ -5,7 +5,7 @@ import 'easymde/dist/easymde.min.css';
 import EasyMDE from 'easymde';
 import { uploadImage } from '@/actions/no-cache/image';
 
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 interface Props {
   value: string;
